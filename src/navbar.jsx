@@ -1,114 +1,141 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const IndianFlag = ({ width = "w-6", height = "h-4" }) => (
-  <svg 
-    viewBox="0 0 512 341"  
-    className={`${width} ${height} rounded-sm shadow-sm`}
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <rect width="512" height="113.7" fill="#ff9933"/>
-    <rect y="113.7" width="512" height="113.7" fill="#ffffff"/>
-    <rect y="227.4" width="512" height="113.7" fill="#128807"/>
-    <g transform="translate(256 170.5)">
-      <circle r="50" fill="none" stroke="#000080" strokeWidth="4"/>
-      <circle r="8" fill="#000080"/>
-      {[...Array(24)].map((_, i) => (
-        <line 
-          key={i} 
-          y2="50" 
-          transform={`rotate(${i * 15})`} 
-          stroke="#000080" 
-          strokeWidth="2"
-        />
-      ))}
-    </g>
-  </svg>
+// Everything else (IndianFlag, Header, etc.) goes BELOW these lines.
+
+const IndianFlag = () => (
+    <svg viewBox="0 0 900 600" className="w-6 h-4 shadow-sm" xmlns="http://www.w3.org/2000/svg">
+        <rect width="900" height="200" fill="#FF9933"/>
+        <rect y="200" width="900" height="200" fill="#FFFFFF"/>
+        <rect y="400" width="900" height="200" fill="#128807"/>
+        <g transform="translate(450,300)">
+            <circle r="92" fill="none" stroke="#000080" strokeWidth="4"/>
+            <circle r="10" fill="#000080"/>
+            {[...Array(24)].map((_, i) => (
+                <line key={i} y1="-92" y2="92" transform={`rotate(${i * 7.5})`} stroke="#000080" strokeWidth="2" />
+            ))}
+        </g>
+    </svg>
 );
 
-function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+const Header = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+    
+    // 2. Initialize useLocation
+    const location = useLocation();
 
-  const handleScroll = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      setIsScrolled(window.scrollY > 50);
-    }
-  }, []);
+    useEffect(() => {
+        const handleScroll = () => setIsScrolled(window.scrollY > 40);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-  const maxWidthStyle = { maxWidth: '1500px' };
+    // 3. Update menuItems with 'path' instead of 'href'
+    const menuItems = [
+        { name: "Home", path: "/" },
+        { name: "About Us", path: "/about" },
+        { name: "Schemes", path: "/schemes" },
+        { name: "RTI", path: "/rti" },
+        { name: "Tender", path: "/tender" },
+        { name: "Vendor & Shop", path: "/vendor" },
+        { name: "Accounts", path: "/accounts" },
+        { name: "To-Do", path: "/todo" },
+    ];
 
-  return (
-    <header className="fixed top-0 z-50 w-full transition-all duration-300">
-      <div 
-        className={`bg-black text-white transition-all duration-300 overflow-hidden 
-                   ${isScrolled ? 'h-0 opacity-0' : 'h-12 opacity-100 border-b border-white/10'}`} 
-      >
-        <div 
-          style={maxWidthStyle} 
-          className="mx-auto px-6 h-full flex items-center justify-between text-xs tracking-wide"
-        >
-          <div className="flex items-center gap-3">
-            <IndianFlag width="w-7" height="h-auto" />
-            <span className="font-medium uppercase">Government of India</span>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3 border-r border-white/20 pr-6">
-              <button className="hover:text-[#B22234] transition-colors">-A</button>
-              <button className="font-medium bg-white/10 w-6 h-6 flex items-center justify-center rounded hover:bg-white/20">A</button>
-              <button className="hover:text-[#B22234] transition-colors">A+</button>
+    return (
+        <header className="fixed top-0 w-full z-50 font-heading">
+            {/* Top Accessibility Bar */}
+            <div className={`bg-govBlack text-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-10 flex items-center text-[11px] font-bold border-b border-white/10'}`}>
+                <div className="max-w-7xl mx-auto px-6 w-full flex justify-between items-center uppercase tracking-tighter">
+                    <div className="flex items-center gap-4">
+                        <IndianFlag />
+                        <span className="hidden sm:inline">Government of Chhattisgarh</span>
+                    </div>
+                    <div className="flex gap-4 items-center">
+                        <a href="#" className="hover:text-govRed">Contact Us</a>
+                        <div className="h-3 w-px bg-white/20"></div>
+                        <div className="flex gap-3">
+                            <span className="text-govRed cursor-pointer">English</span>
+                            <span className="text-gray-400">|</span>
+                            <span className="hover:text-govRed cursor-pointer font-normal">हिन्दी</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="flex items-center gap-3">
-              <button className="font-semibold text-[#B22234] uppercase">English</button>
-              <span className="text-white/30">|</span>
-              <button className="text-gray-300 hover:text-[#B22234] transition-colors">हिन्दी</button>
+
+            {/* Main Navbar */}
+            <div className={`bg-white border-b-2 border-govGray shadow-sm flex items-center transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24 md:h-28'}`}>
+                <div className="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+                    <div className="flex items-center gap-4">
+                        <div className={`flex items-center justify-center transition-all duration-300 ${isScrolled ? 'w-12 h-12' : 'w-20 h-20 md:w-24 md:h-24'}`}>
+                            <img src="/image/CIDClogo.png" alt="CIDC Logo" className="max-h-full w-auto object-contain" />
+                        </div>
+                        
+                        <div className="hidden sm:flex flex-col border-l-4 border-govGray pl-4">
+                            <h1 className={`font-black leading-none text-govBlack transition-all uppercase ${isScrolled ? 'text-lg' : 'text-xl'}`}>CIDC RAIPUR</h1>
+                            <span className="text-[8px] font-bold text-gray-500 mt-1 uppercase tracking-widest font-sans">Digital Advancement Portal</span>
+                        </div>
+                    </div>
+
+                    {/* Desktop Nav */}
+                    <nav className="hidden lg:flex gap-6 text-[14px] font-bold uppercase tracking-tight">
+                        {menuItems.map((item) => {
+                            // 4. CHECK IF THE ITEM PATH MATCHES THE CURRENT URL
+                            const isActive = location.pathname === item.path;
+
+                            return (
+                                <Link 
+                                    key={item.name} 
+                                    to={item.path} 
+                                    className={`${isActive ? "text-govRed border-b-2 border-govRed" : "text-govBlack hover:text-govRed"} pb-1 transition-all`}
+                                >
+                                    {item.name}
+                                </Link>
+                            );
+                        })}
+                    </nav>
+
+                    {/* Mobile Hamburger */}
+                    <button onClick={() => setIsSideNavOpen(true)} className="lg:hidden p-2 hover:bg-govGray transition-colors">
+                        <svg className="w-8 h-8 text-govBlack" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div 
-        className={`w-full transition-all duration-300 bg-white border-b border-gray-100 
-                   ${isScrolled ? 'shadow-md h-20' : 'h-28'}`} 
-      >
-        <div 
-          style={maxWidthStyle} 
-          className="mx-auto px-6 h-full flex items-center justify-between gap-10"
-        >
-          <div className="shrink-0 flex items-center gap-5">
-            <a href="/" className="shrink-0">
-              <img 
-                src="/image/CIDClogo.png" 
-                alt="CIDC Logo" 
-                className={`object-contain transition-all duration-500 ${isScrolled ? 'h-10' : 'h-14'}`} 
-              />
-            </a>
-            
-            <div className={`w-px bg-gray-200 transition-all duration-500 ${isScrolled ? 'h-10' : 'h-16'}`}></div>
-            
-            <div className="flex flex-col text-gray-900 leading-tight">
-              <span className="text-lg font-extrabold uppercase text-gray-500">Government of Chhattisgarh</span>
-              <span className="text-[13px] font-semibold text-gray-700">Chhattisgarh Infrastructure Development Corporation Ltd.</span>
+
+            {/* Mobile Side Nav */}
+            {isSideNavOpen && (
+                <div className="fixed inset-0 bg-govBlack/60 backdrop-blur-sm z-[60] lg:hidden" onClick={() => setIsSideNavOpen(false)}></div>
+            )}
+            <div className={`fixed top-0 right-0 h-full w-72 bg-white z-[70] shadow-2xl transition-transform duration-300 transform lg:hidden ${isSideNavOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <div className="p-6 bg-govBlack text-white flex justify-between items-center">
+                    <button onClick={() => setIsSideNavOpen(false)} className="hover:text-govRed transition-colors">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <span className="font-black text-sm tracking-widest uppercase">MENU</span>
+                </div>
+                <nav className="p-6 flex flex-col gap-6 font-bold uppercase text-sm text-right overflow-y-auto h-full pb-20">
+                    {menuItems.map((item) => {
+                        const isActive = location.pathname === item.path;
+                        return (
+                            <Link 
+                                key={item.name} 
+                                to={item.path} 
+                                className={`${isActive ? "text-govRed" : "text-govBlack"} hover:text-govRed border-b border-govGray pb-4`} 
+                                onClick={() => setIsSideNavOpen(false)}
+                            >
+                                {item.name}
+                            </Link>
+                        );
+                    })}
+                </nav>
             </div>
-          </div>
-          
-          <nav className="hidden xl:flex items-center space-x-9 text-[15px] font-semibold text-gray-800">
-            <a className="text-[#B22234]" href="#">Home</a>
-            <a className="hover:text-[#B22234] transition-colors" href="#">About Us</a>
-            <a className="hover:text-[#B22234] transition-colors" href="#">Projects</a>
-            <a className="hover:text-[#B22234] transition-colors" href="#">Schemes</a>
-            <a className="hover:text-[#B22234] transition-colors" href="#">Resources</a>
-            <a className="hover:text-[#B22234] transition-colors" href="#">RTI</a>
-            <a className="hover:text-[#B22234] transition-colors" href="#">Support</a>
-          </nav>
-        </div>
-      </div>
-    </header>
-  );
-}
-export default Navbar;
+        </header>
+    );
+};
 
-
-
+export default Header;
