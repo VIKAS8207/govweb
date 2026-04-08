@@ -7,6 +7,7 @@ import Home from './pages/Home2';
 import About from './pages/About';
 import Schemes from './pages/Schemes'; 
 import Rti from './pages/RtiPage'; 
+import Tender from './pages/Tenders'; 
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="/about" element={<About />} /> 
               <Route path="/schemes" element={<Schemes />} /> 
               <Route path="/rti" element={<Rti />} />
+              <Route path="/tender" element={<Tender />} />
            </Routes>
         </main>
 
