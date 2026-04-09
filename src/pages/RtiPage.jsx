@@ -11,7 +11,6 @@ export default function RtiPage() {
       {/* 2. The Statutory Contacts Table */}
       <RTIContactRegistry />
       
-     
     </main>
   );
 }

@@ -13,8 +13,8 @@ import {
 const Home = () => {
   return (
     <>
-      <Carousel />
       <LatestUpdates />
+      <Carousel />
       <QuickLinks />
       <AboutSection />
       <DashboardStats />   

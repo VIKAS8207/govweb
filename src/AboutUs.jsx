@@ -90,40 +90,78 @@ import React, { useState, useEffect, useRef } from 'react';
     }
 
     export function BoardMembers() {
-        const board = [
-            { name: "Shri S.K. Behar", designation: "Nominee Director", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300" },
-            { name: "Shri Ravi Shanker", designation: "Independent Director", imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300" },
-            { name: "Smt. Meeta Gupta", designation: "Ex-Officio Member", imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" },
-            { name: "Shri Rajesh Kumar", designation: "Technical Director", imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300" }
-        ];
-        const containerStyle = { maxWidth: '1280px' };
-        return (
-            <section className="py-24 bg-white border-b-2 border-govGray">
-                <div style={containerStyle} className="mx-auto px-6">
-                    <div className="flex flex-col items-start mb-20">
-                        <span className="text-govRed font-heading font-black text-[10px] uppercase tracking-[0.4em] mb-2">Governance</span>
-                        <h2 className="text-4xl font-heading font-black text-govBlack uppercase tracking-tighter">Board of <span className="text-govRed">Directors</span></h2>
-                        <p className="text-gray-500 mt-4 text-sm font-sans font-medium max-w-xl">Governing body responsible for strategic oversight, policy formulation, and high-level industrial direction.</p>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-gray-300">
-                        {board.map((member, idx) => (
-                            <div key={idx} className="group flex flex-col items-center text-center border-r last:border-r-0 border-gray-300 hover:bg-govGray transition-all duration-300">
-                                <div className="relative w-full aspect-square overflow-hidden bg-gray-100">
-                                    <img src={member.imageUrl} alt={member.name} className="w-full h-full object-cover" />
-                                </div>
-                                <div className="p-10 w-full flex flex-col items-center">
-                                    <h4 className="text-lg font-heading font-black text-govBlack uppercase tracking-tighter mb-2 group-hover:text-govRed transition-colors">{member.name}</h4>
-                                    <div className="w-10 h-1 bg-govBlack mb-4 group-hover:bg-govRed group-hover:w-16 transition-all"></div>
-                                    <p className="text-[10px] font-heading font-black text-gray-500 uppercase tracking-[0.2em] leading-tight">{member.designation}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-        );
-    }
+    const board = [
+        { 
+            name: "Shri S.K. Behar", 
+            designation: "Nominee Director", 
+            imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300" 
+        },
+        { 
+            name: "Shri Ravi Shanker", 
+            designation: "Independent Director", 
+            imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300" 
+        },
+        { 
+            name: "Smt. Meeta Gupta", 
+            designation: "Ex-Officio Member", 
+            imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" 
+        }
+    ];
 
+    const containerStyle = { maxWidth: '1280px' };
+
+    return (
+        <section className="py-24 bg-white border-b-2 border-govGray">
+            <div style={containerStyle} className="mx-auto px-6">
+                
+                {/* Section Header */}
+                <div className="flex flex-col items-start mb-20">
+                    <span className="text-govRed font-heading font-black text-[10px] uppercase tracking-[0.4em] mb-2">Governance</span>
+                    <h2 className="text-4xl font-heading font-black text-govBlack uppercase tracking-tighter">
+                        Board of <span className="text-govRed">Directors</span>
+                    </h2>
+                    <p className="text-gray-500 mt-4 text-sm font-sans font-medium max-w-xl">
+                        Governing body responsible for strategic oversight, policy formulation, and high-level industrial direction.
+                    </p>
+                </div>
+
+                {/* Board Members Grid - Updated to 3 columns with gap */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {board.map((member, idx) => (
+                        <div 
+                            key={idx} 
+                            className="group flex flex-col items-center text-center border border-gray-200 bg-white hover:bg-govGray transition-all duration-300 shadow-sm"
+                        >
+                            {/* Image Section - Professional Grayscale transition */}
+                            <div className="relative w-full aspect-square overflow-hidden bg-gray-100 border-b border-gray-200">
+                                <img 
+                                    src={member.imageUrl} 
+                                    alt={member.name} 
+                                    className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 transition-all duration-500" 
+                                />
+                            </div>
+
+                            {/* Text Section */}
+                            <div className="p-10 w-full flex flex-col items-center">
+                                <h4 className="text-lg font-heading font-black text-govBlack uppercase tracking-tighter mb-2 group-hover:text-govRed transition-colors">
+                                    {member.name}
+                                </h4>
+                                
+                                {/* Institutional Accent Line */}
+                                <div className="w-10 h-1 bg-govBlack mb-4 group-hover:bg-govRed group-hover:w-16 transition-all duration-300"></div>
+                                
+                                <p className="text-[10px] font-heading font-black text-gray-500 uppercase tracking-[0.2em] leading-tight">
+                                    {member.designation}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                
+            </div>
+        </section>
+    );
+}
     export function KeyOfficials() {
         const officials = [
             { name: "Mr. Arindam Bose", designation: "Head of Operations", contact: "+91 771 223 4561", email: "a.bose@cidc.cg.gov.in", din: "08441292", accent: "bg-govRed" },
@@ -171,10 +209,7 @@ import React, { useState, useEffect, useRef } from 'react';
                             </tbody>
                         </table>
                     </div>
-                    <div className="mt-6 flex justify-between items-center bg-govGray p-4 border border-gray-200">
-                       <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest font-sans">Showing: Statutory Management Registry 2026</p>
-                       <button className="text-[10px] font-heading font-black text-govRed uppercase hover:text-govBlack transition-colors">Download Registry (PDF) »</button>
-                    </div>
+                    
                 </div>
             </section>
         );

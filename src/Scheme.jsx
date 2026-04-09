@@ -55,7 +55,7 @@
             <div className="w-full">
               <div className="flex justify-between items-end mb-8 border-b-2 border-govBlack pb-4">
                 <div>
-                  <h2 className="text-2xl font-heading font-black uppercase tracking-tight text-govBlack">Project <span className="text-govRed">Registry</span></h2>
+                  <h2 className="text-2xl font-heading font-black uppercase tracking-tight text-govBlack">Project </h2>
                 </div>
                 <button className="text-govRed text-[10px] font-heading font-black uppercase tracking-widest hover:text-govBlack transition-all">
                   Access Archive »
@@ -254,18 +254,6 @@ export function SchemeDirectory() {
                 
                 {/* Deployment Analytics Strip */}
                 <div className="flex flex-1 items-center justify-end gap-12 w-full mt-6 md:mt-0">
-                  <div className="w-full max-w-[240px]">
-                    <div className="flex justify-between text-[10px] font-heading font-black text-gray-500 uppercase tracking-widest mb-2">
-                      <span>Deployment Status</span>
-                      <span className={item.progress === 100 ? 'text-green-700' : 'text-govRed'}>{item.progress}%</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-gray-200">
-                      <div 
-                        className={`h-full transition-all duration-1000 ${item.progress === 100 ? 'bg-green-600' : 'bg-govRed'}`} 
-                        style={{ width: `${item.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
 
                   {/* GOV UI Toggle Block */}
                   <button 

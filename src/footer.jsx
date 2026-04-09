@@ -8,13 +8,12 @@ import React from 'react';
                         <div className="space-y-6">
                             <div className="border-l-4 border-govRed pl-4 font-heading font-black uppercase"><h3 className="text-xl tracking-tighter">CIDC <span className="text-govRed">Raipur</span></h3><p className="text-[10px] text-gray-500 tracking-widest mt-1 font-sans">Govt. of Chhattisgarh Undertaking</p></div>
                             <p className="text-gray-400 text-[12px] leading-relaxed font-sans">Chhattisgarh Infrastructure Development Corporation Ltd. is mandated to build sustainable and world-class infrastructure for the state of Chhattisgarh.</p>
-                            <div className="pt-4 border-t border-white/5 font-sans"><p className="text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-bold">Total Visitors since 2026</p><span className="bg-black border border-white/10 px-4 py-2 text-govRed font-heading font-black text-lg tracking-[0.2em]">012,458,792</span></div>
                         </div>
                         {["Quick Links", "Policy & Help"].map((title, idx) => (
                             <div key={idx}>
                                 <h3 className="text-white font-heading font-black text-sm uppercase tracking-[0.2em] mb-6 pb-2 border-b-2 border-govRed inline-block">{title}</h3>
                                 <ul className="space-y-4 font-heading font-bold uppercase text-[12px] text-gray-400">
-                                    {(idx === 0 ? ["Tenders & RFPs", "Latest News", "Recruitment", "Photo Gallery", "Important Documents"] : ["Right to Information", "Terms & Conditions", "Privacy Policy", "Hyperlinking Policy", "Copyright Policy"]).map(link => (
+                                    {(idx === 0 ? ["Tenders & RFPs", "Latest News", "Important Documents"] : ["Right to Information", "Terms & Conditions", "Privacy Policy", "Hyperlinking Policy", "Copyright Policy"]).map(link => (
                                         <li key={link}><a href="#" className="hover:text-govRed transition-colors">» {link}</a></li>
                                     ))}
                                 </ul>

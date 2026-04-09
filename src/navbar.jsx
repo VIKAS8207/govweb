@@ -37,6 +37,7 @@ const Header = () => {
         { name: "About Us", path: "/about" },
         { name: "Schemes", path: "/schemes" },
         { name: "RTI", path: "/rti" },
+        { name: "EPFO", path: "/epfo" },
         { name: "Tender", path: "/tender" },
         { name: "Vendor & Shop", path: "/vendor" },
         { name: "Accounts", path: "/accounts" },
@@ -53,7 +54,7 @@ const Header = () => {
                         <span className="hidden sm:inline">Government of Chhattisgarh</span>
                     </div>
                     <div className="flex gap-4 items-center">
-                        <a href="#" className="hover:text-govRed">Contact Us</a>
+                       <Link to="/contact" className="hover:text-govRed">Contact Us</Link>
                         <div className="h-3 w-px bg-white/20"></div>
                         <div className="flex gap-3">
                             <span className="text-govRed cursor-pointer">English</span>
