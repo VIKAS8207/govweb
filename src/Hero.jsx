@@ -156,30 +156,30 @@ export function AboutSection() {
                     <div className="space-y-4">
                         <div className="flex items-center gap-4 mb-6">
                             <h4 className="text-[14px] font-heading font-black text-govBlack uppercase tracking-[0.3em]">Flagship <span className="text-govRed">Initiatives</span></h4>
-                            <div className="flex-grow h-[2px] bg-govGray"></div>
+                            
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {/* Card 1: Skill Certification */}
-                            <div className="border-l-4 border-govRed bg-govGray p-6 group cursor-pointer hover:bg-govBlack transition-all duration-300">
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className="text-[10px] font-heading font-black text-govRed uppercase tracking-widest">Welfare Scheme</span>
-                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                                </div>
-                                <h5 className="text-[13px] font-heading font-black text-govBlack group-hover:text-white uppercase mb-2">Shramik Skill Certification</h5>
-                                <p className="text-[11px] text-gray-600 group-hover:text-gray-400 font-bold uppercase leading-tight">National level competency mapping and certification for construction personnel.</p>
-                            </div>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {/* Card 1: Skill Certification - NON-CLICKABLE NOTICE */}
+    <div className="border-l-4 border-govRed bg-govGray p-6 cursor-default">
+        <div className="flex justify-between items-start mb-4">
+            <span className="text-[10px] font-heading font-black text-govRed uppercase tracking-widest">Welfare Scheme</span>
+            {/* Arrow icon removed for non-clickable state */}
+        </div>
+        <h5 className="text-[13px] font-heading font-black text-govBlack uppercase mb-2">Shramik Skill Certification</h5>
+        <p className="text-[11px] text-gray-600 font-bold uppercase leading-tight">National level competency mapping and certification for construction personnel.</p>
+    </div>
 
-                            {/* Card 2: Infrastructure Grants */}
-                            <div className="border-l-4 border-govBlack bg-govGray p-6 group cursor-pointer hover:bg-govBlack transition-all duration-300">
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className="text-[10px] font-heading font-black text-govRed uppercase tracking-widest">Industry Support</span>
-                                    <svg className="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                                </div>
-                                <h5 className="text-[13px] font-heading font-black text-govBlack group-hover:text-white uppercase mb-2">Infrastructure Subsidy Portal</h5>
-                                <p className="text-[11px] text-gray-600 group-hover:text-gray-400 font-bold uppercase leading-tight">Facilitating state-sponsored grants for standardized equipment and green building technology.</p>
-                            </div>
-                        </div>
+    {/* Card 2: Infrastructure Grants - NON-CLICKABLE NOTICE */}
+    <div className="border-l-4 border-govBlack bg-govGray p-6 cursor-default">
+        <div className="flex justify-between items-start mb-4">
+            <span className="text-[10px] font-heading font-black text-govRed uppercase tracking-widest">Industry Support</span>
+            {/* Arrow icon removed for non-clickable state */}
+        </div>
+        <h5 className="text-[13px] font-heading font-black text-govBlack uppercase mb-2">Infrastructure Subsidy Portal</h5>
+        <p className="text-[11px] text-gray-600 font-bold uppercase leading-tight">Facilitating state-sponsored grants for standardized equipment and green building technology.</p>
+    </div>
+</div>
                     </div>
                 </div>
 

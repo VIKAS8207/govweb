@@ -1,158 +1,201 @@
- import React, { useState } from 'react';
- 
-   export function PaymentConfirmation () {
-  const containerStyle = { maxWidth: '1400px' };
+import React, { useState } from 'react';
+
+export function PaymentConfirmation() {
+  // Locked GOV UI Max Width for institutional consistency
+  const containerStyle = { maxWidth: '1280px' };
+
+  const [employees] = useState([
+    { id: 1, name: "Julianne Smith", dept: "Operations", role: "Senior Analyst", date: "Mar 12, 2021", status: "Cleared", color: "border-blue-500 text-blue-700 bg-blue-50" },
+    { id: 2, name: "Arthur Morgan", dept: "Public Policy", role: "Director", date: "Jan 05, 2019", status: "Pending", color: "border-amber-500 text-amber-700 bg-amber-50" },
+    { id: 3, name: "Lydia Chen", dept: "Finance", role: "Lead Auditor", date: "Nov 22, 2022", status: "Cleared", color: "border-blue-500 text-blue-700 bg-blue-50" },
+    { id: 4, name: "Robert Kennedy", dept: "IT Support", role: "Systems Admin", date: "Jul 18, 2023", status: "Overdue", color: "border-govRed text-govRed bg-red-50" },
+  ]);
 
   return (
-    <main className="min-h-screen bg-white py-20 font-sans antialiased text-zinc-900">
+    <main className="min-h-screen bg-white py-16 font-sans antialiased text-govBlack selection:bg-govRed selection:text-white">
       <div style={containerStyle} className="mx-auto px-6 space-y-16">
         
-        {/* HEADER: TRANSACTION AUTHORITY */}
-        <section className="max-w-3xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-1 bg-[#B22234]"></div>
-            <span className="text-[#B22234] font-black text-[10px] uppercase tracking-[0.4em]">Transaction Management</span>
+        {/* --- SECTION 1: STATUTORY IDENTITY --- */}
+        <header className="border-l-[8px] border-govRed pl-8 py-2">
+          <div className="flex items-center gap-3 mb-2">
+             <span className="text-govRed font-heading font-black text-[11px] uppercase tracking-[0.4em]">Administrative Services</span>
           </div>
-          <h1 className="text-6xl font-black uppercase tracking-tighter leading-none mb-6">
-            Payment <span className="text-[#B22234]">Confirmation</span>
+          <h1 className="text-4xl md:text-6xl font-heading font-black text-govBlack uppercase tracking-tighter leading-none mb-6">
+            Employee <span className="text-govRed">Directory</span>
           </h1>
-          <p className="text-zinc-500 text-sm font-medium leading-relaxed border-l-4 border-zinc-900 pl-8">
-            Review the provident fund contribution details for CIDC Raipur Portal. Ensure all employee 
-            data and wage figures are accurate before proceeding to the institutional gateway.
+          <p className="text-gray-500 text-sm font-bold uppercase tracking-widest leading-relaxed max-w-3xl">
+            Authorized Personnel Information System. Access and manage statutory employee records, 
+            departmental assignments, and compliance verification status.
           </p>
+        </header>
+
+        {/* --- SECTION 2: METRICS STRIP (Standard Dashboard Layout) --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-gray-300 bg-white shadow-sm overflow-hidden">
+          <div className="p-10 flex flex-col items-center justify-center text-center border-b md:border-b-0 md:border-r border-gray-200 group hover:bg-govGray transition-all duration-300 h-48">
+            <span className="text-[9px] font-heading font-black text-gray-400 uppercase tracking-[0.4em] mb-4 group-hover:text-govRed transition-colors">
+              Operational Registry
+            </span>
+            <h3 className="text-5xl font-heading font-black text-govBlack tracking-tighter mb-2">1,240</h3>
+            <p className="text-[10px] font-heading font-black text-gray-500 uppercase tracking-widest leading-none mb-4">Total Employees</p>
+            <div className="w-10 h-1 bg-govGray group-hover:w-16 group-hover:bg-govRed transition-all duration-500"></div>
+          </div>
+
+          <div className="p-10 flex flex-col items-center justify-center text-center border-gray-200 group hover:bg-govGray transition-all duration-300 h-48">
+            <span className="text-[9px] font-heading font-black text-gray-400 uppercase tracking-[0.4em] mb-4 group-hover:text-govRed transition-colors">
+              Critical Backlog
+            </span>
+            <h3 className="text-5xl font-heading font-black text-govBlack tracking-tighter mb-2">124</h3>
+            <p className="text-[10px] font-heading font-black text-gray-500 uppercase tracking-widest leading-none mb-4">Payment Pending</p>
+            <div className="w-10 h-1 bg-govGray group-hover:w-16 group-hover:bg-govRed transition-all duration-500"></div>
+          </div>
+        </div>
+
+        {/* --- SECTION 3: DIRECTORY REGISTRY TABLE --- */}
+        <section className="space-y-6">
+          <div className="flex justify-between items-end border-b-2 border-gray-200 pb-4">
+            <div>
+                <h2 className="text-2xl font-heading font-black uppercase tracking-tight text-govBlack">Personnel <span className="text-govRed">Registry</span></h2>
+                <p className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-widest mt-1">Authorized Statutory Disclosure Ledger</p>
+            </div>
+            <div className="flex gap-4">
+              <button className="bg-govRed text-white px-6 py-2 text-[10px] font-heading font-black uppercase tracking-widest hover:bg-govBlack transition-all shadow-md">
+                  + Add Personnel
+              </button>
+            </div>
+          </div>
+
+          <div className="border border-gray-300 overflow-hidden shadow-sm bg-white">
+            <table className="w-full text-left border-collapse font-sans">
+              <thead>
+                <tr className="bg-govBlack text-white text-[11px] font-heading uppercase tracking-widest">
+                  <th className="px-8 py-5 border-r border-white/10">Employee Nomenclature</th>
+                  <th className="px-8 py-5 border-r border-white/10">Department</th>
+                  <th className="px-8 py-5 border-r border-white/10">Designation</th>
+                  <th className="px-8 py-5 border-r border-white/10 text-center">Joining Date</th>
+                  <th className="px-8 py-5 border-r border-white/10 text-center">Status</th>
+                  <th className="px-8 py-5 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody className="text-[12px]">
+                {employees.map((emp) => (
+                  <tr key={emp.id} className="border-b border-gray-200 hover:bg-govGray transition-colors group cursor-pointer">
+                    <td className="px-8 py-6 border-r border-gray-100">
+                      <h4 className="font-heading font-black text-govBlack uppercase tracking-tight group-hover:text-govRed transition-colors leading-none">
+                        {emp.name}
+                      </h4>
+                      <p className="text-[9px] font-sans font-bold text-gray-400 uppercase mt-1">REF-ID: 00{emp.id}</p>
+                    </td>
+                    <td className="px-8 py-6 border-r border-gray-100 font-heading font-black text-gray-500 uppercase tracking-widest">
+                      {emp.dept}
+                    </td>
+                    <td className="px-8 py-6 border-r border-gray-100 font-heading font-black text-gray-400 uppercase tracking-widest">
+                      {emp.role}
+                    </td>
+                    <td className="px-8 py-6 border-r border-gray-100 text-center font-mono font-bold text-gray-400">
+                      {emp.date}
+                    </td>
+                    <td className="px-8 py-6 border-r border-gray-100">
+                      <div className="flex justify-center">
+                        <span className={`px-4 py-1.5 border-2 text-[9px] font-heading font-black uppercase tracking-widest ${emp.color}`}>
+                          {emp.status}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-8 py-6 text-right">
+                      <button className="text-[10px] font-heading font-black text-gray-400 hover:text-govBlack uppercase tracking-widest border-b border-transparent hover:border-govBlack transition-all">
+                        View Profile »
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* TABLE FOOTER / PAGINATION */}
+          <div className="flex justify-between items-center bg-govGray p-4 border border-gray-300">
+            <p className="text-[9px] font-heading font-black text-gray-400 uppercase tracking-[0.4em]">Auth System Ref: CIDC-HR-2026-R1</p>
+            <div className="flex gap-1">
+                {[1, 2, 3].map(page => (
+                  <button key={page} className={`w-8 h-8 flex items-center justify-center text-[10px] font-heading font-black transition-all border
+                    ${page === 1 ? 'bg-govBlack text-white border-govBlack' : 'bg-white text-gray-400 border-gray-200 hover:border-govBlack hover:text-govBlack'}`}>
+                    {page}
+                  </button>
+                ))}
+            </div>
+          </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-zinc-200">
-          
-          {/* LEFT: CONTRIBUTION DATA LEDGER */}
-          <div className="lg:col-span-8 p-12 space-y-12">
-            <div className="flex items-center gap-4 pb-6 border-b border-zinc-100">
-              <div className="w-12 h-12 bg-zinc-900 flex items-center justify-center text-white">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-              </div>
-              <h3 className="text-2xl font-black uppercase tracking-tighter">Employee Contribution Data</h3>
-            </div>
-
-            {/* Metadata Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { label: "Name of Employee", val: "Premlal" },
-                { label: "UAN Number", val: "1002802893" },
-                { label: "PF/AC", val: "6801" },
-                { label: "EPS Age", val: "58" }
-              ].map((item, i) => (
-                <div key={i} className="space-y-1">
-                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">{item.label}</span>
-                  <p className="text-[13px] font-bold uppercase text-zinc-900">{item.val}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Component Table */}
-            <div className="border border-zinc-100">
-              <div className="grid grid-cols-2 bg-zinc-50 p-5 border-b border-zinc-900">
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400">Contribution Component</span>
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-400 text-right">Amount (₹)</span>
-              </div>
-              {[
-                { label: "Wages", amt: "1,126,250.00" },
-                { label: "Employee Share", amt: "13,518.00" },
-                { label: "Employer Share", amt: "1,800.00" }
-              ].map((row, i) => (
-                <div key={i} className="grid grid-cols-2 p-6 border-b border-zinc-50 hover:bg-zinc-50 transition-colors">
-                  <span className="text-[11px] font-bold uppercase tracking-tight text-zinc-800">{row.label}</span>
-                  <span className="text-[12px] font-mono font-bold text-zinc-900 text-right">{row.amt}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Payment Configuration Dropdown */}
-            <div className="bg-zinc-50 p-8 flex flex-col md:flex-row justify-between items-center gap-6">
-              <div>
-                <h4 className="text-[13px] font-black uppercase tracking-tight">Payment Configuration</h4>
-                <p className="text-[10px] text-zinc-400 uppercase font-bold tracking-widest">Select cycle for automated institutional billing.</p>
-              </div>
-              <div className="relative w-full md:w-64">
-                <select className="w-full bg-white border-2 border-zinc-900 p-4 text-[10px] font-black uppercase tracking-[0.2em] appearance-none outline-none">
-                  <option>Monthly</option>
-                  <option>Yearly</option>
-                  <option>Quarterly</option>
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#B22234]">
-                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: ORDER SUMMARY MONOLITH */}
-          <div className="lg:col-span-4 bg-zinc-50 border-l border-zinc-200 p-12 flex flex-col justify-between relative overflow-hidden">
-            {/* Ghost Background Icon */}
-            <div className="absolute -right-12 -bottom-12 opacity-[0.03] pointer-events-none">
-              <svg className="w-64 h-64 rotate-12" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" /><path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" /></svg>
-            </div>
-
-            <div className="relative z-10">
-              <div className="flex justify-between items-center mb-10 pb-4 border-b border-zinc-200">
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400">Order Summary</span>
-                <svg className="w-4 h-4 text-[#B22234]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex justify-between text-[11px] font-bold uppercase tracking-widest text-zinc-500">
-                  <span>Gross Salary</span>
-                  <span className="text-zinc-900">₹ 1,126,250.00</span>
-                </div>
-                <div className="flex justify-between text-[11px] font-bold uppercase tracking-widest text-zinc-500">
-                  <span>Combined Share</span>
-                  <span className="text-zinc-900">₹ 15,318.00</span>
-                </div>
-                <div className="flex justify-between text-[11px] font-bold uppercase tracking-widest text-zinc-500">
-                  <span>Service Charges</span>
-                  <span className="text-zinc-900">₹ 0.00</span>
-                </div>
-              </div>
-
-              <div className="mt-12 py-10 border-y-2 border-zinc-900">
-                <span className="text-[9px] font-black uppercase tracking-[0.5em] text-zinc-400 block mb-2">Total Payable Amount</span>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-black text-[#B22234] tracking-tighter">₹ 15,318</span>
-                  <span className="text-xl font-black text-[#B22234] opacity-50">.00</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative z-10 pt-10">
-              <button className="w-full bg-[#B22234] text-white py-6 font-black text-[12px] uppercase tracking-[0.4em] hover:bg-zinc-950 transition-all flex items-center justify-center gap-4 group">
-                Proceed to Payment
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-              </button>
-              
-              <p className="mt-6 text-[9px] font-bold text-zinc-400 uppercase tracking-widest text-center leading-relaxed">
-                By clicking "Proceed", you authorize CIDC to execute this <br/> transaction via the secure institutional gateway.
-              </p>
-            </div>
-          </div>
+        {/* STATUTORY FOOTER STRIP */}
+        <div className="mt-12 flex justify-between items-center opacity-30">
+           <p className="text-[9px] font-heading font-black uppercase tracking-[0.4em]">Secure Access Node: CIDC-ADM-04</p>
+           <div className="flex gap-2">
+              <div className="w-6 h-1 bg-govBlack"></div>
+              <div className="w-6 h-1 bg-govRed"></div>
+           </div>
         </div>
 
-        {/* ASSISTANCE FOOTER */}
-        <div className="bg-zinc-900 p-10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-12 bg-white/10 flex items-center justify-center border border-white/20">
-               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-            </div>
-            <div>
-              <h4 className="text-white text-[13px] font-black uppercase tracking-tight">System Assistance</h4>
-              <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Our institutional support desk is active 24/7.</p>
-            </div>
-          </div>
-          <button className="px-10 py-4 border border-white/20 text-white text-[10px] font-black uppercase tracking-[0.3em] hover:bg-white hover:text-zinc-900 transition-all">
-            Contact Support —
-          </button>
+        {/* --- STATUTORY SETTLEMENT SUMMARY --- */}
+<section className="border-2 border-govBlack bg-white shadow-sm overflow-hidden">
+  <div className="flex flex-col md:flex-row items-stretch">
+    
+    {/* Total Payable Amount */}
+    <div className="flex-grow p-8 lg:p-10 border-b-2 md:border-b-0 md:border-r-2 border-govBlack flex items-center gap-10">
+      <div className="space-y-1">
+        <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-[0.3em]">Total Principal Amount</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-4xl font-heading font-black text-govBlack tracking-tighter">₹ 12,500</span>
+          <span className="text-lg font-heading font-black text-govBlack opacity-40">.00</span>
         </div>
+      </div>
+
+      {/* Industrial Divider */}
+      <div className="h-12 w-px bg-gray-200 hidden lg:block"></div>
+
+      <div className="space-y-1">
+        <span className="text-[10px] font-heading font-black text-govRed uppercase tracking-[0.3em]">Total Penalty / Arrears</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-4xl font-heading font-black text-govRed tracking-tighter">₹ 450</span>
+          <span className="text-lg font-heading font-black text-govRed opacity-40">.00</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Final Settlement & Action Trigger */}
+    <div className="md:w-1/3 bg-govGray p-8 lg:p-10 flex flex-col justify-center gap-6">
+      <div className="flex justify-between items-end border-b border-gray-300 pb-4">
+        <div>
+          <span className="text-[9px] font-heading font-black text-gray-500 uppercase tracking-widest block mb-1">Net Payable Amount</span>
+          <p className="text-2xl font-heading font-black text-govBlack tracking-tight leading-none">₹ 12,950.00</p>
+        </div>
+        <div className="w-2 h-2 bg-govRed animate-pulse mb-1"></div>
+      </div>
+
+      <button className="w-full bg-govBlack text-white py-5 font-heading font-black text-[12px] uppercase tracking-[0.4em] hover:bg-govRed transition-all duration-300 shadow-md active:scale-95 flex items-center justify-center gap-4 group">
+        Proceed to Pay Amount
+        <svg className="w-4 h-4 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+          <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+{/* Registry Metadata Strip */}
+<div className="mt-4 flex justify-between items-center px-2">
+  <p className="text-[8px] text-gray-400 uppercase tracking-[0.4em] font-heading font-black">
+    Calculation Context: CIDC-PAY-STAT-2026
+  </p>
+  <div className="flex gap-2">
+    <div className="w-4 h-1 bg-govBlack"></div>
+    <div className="w-4 h-1 bg-govRed"></div>
+  </div>
+</div>
 
       </div>
+
+      
     </main>
   );
 };
-
