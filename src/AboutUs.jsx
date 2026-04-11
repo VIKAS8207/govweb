@@ -27,8 +27,8 @@ import React, { useState, useEffect, useRef } from 'react';
                             </div>
                         </div>
                         <div className="flex-1 relative w-full">
-                            <div className="relative z-10 border-2 border-govBlack p-3 bg-govGray shadow-sm">
-                                <img src="/image/pexels-midlox-28377273.jpg" alt="Infrastructure Development" className="w-full h-[520px] object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-700" />
+                            <div className="relative z-10 border-2 border-govBlack bg-govGray shadow-sm">
+                                <img src="/image/heroimg.jpg" alt="Infrastructure Development" className="w-full h-[520px] object-cover brightness-90 hover:grayscale-0 transition-all duration-700" />
                                 <div className="absolute bottom-0 right-0 bg-govBlack text-white p-6 font-heading font-black text-xl tracking-tighter uppercase leading-none border-l-4 border-govRed">
                                     CIDC <br/> <span className="text-govRed">HQ</span>
                                     <span className="block text-[8px] tracking-[0.3em] mt-2 text-gray-400 font-bold">RAIPUR, CG</span>
@@ -89,7 +89,7 @@ import React, { useState, useEffect, useRef } from 'react';
         );
     }
 
-    export function BoardMembers() {
+ export function BoardMembers() {
     const board = [
         { 
             name: "Shri S.K. Behar", 
@@ -105,10 +105,15 @@ import React, { useState, useEffect, useRef } from 'react';
             name: "Smt. Meeta Gupta", 
             designation: "Ex-Officio Member", 
             imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" 
+        },
+        { 
+            name: "Dr. Alok Verma", 
+            designation: "Technical Director", 
+            imageUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300" 
         }
     ];
 
-    const containerStyle = { maxWidth: '1280px' };
+    const containerStyle = { maxWidth: '1440px' }; // Slightly wider to accommodate 4 cards comfortably
 
     return (
         <section className="py-24 bg-white border-b-2 border-govGray">
@@ -121,43 +126,41 @@ import React, { useState, useEffect, useRef } from 'react';
                         Board of <span className="text-govRed">Directors</span>
                     </h2>
                     <p className="text-gray-500 mt-4 text-sm font-sans font-medium max-w-xl">
-                        Governing body responsible for strategic oversight, policy formulation, and high-level industrial direction.
+                        Governing body responsible for strategic oversight and institutional direction.
                     </p>
                 </div>
 
-                {/* Board Members Grid - Updated to 3 columns with gap */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Grid Logic: 1 Col (Mobile), 2 Cols (Tablet), 4 Cols (Desktop) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {board.map((member, idx) => (
                         <div 
                             key={idx} 
                             className="group flex flex-col items-center text-center border border-gray-200 bg-white hover:bg-govGray transition-all duration-300 shadow-sm"
                         >
-                            {/* Image Section - Professional Grayscale transition */}
+                            {/* Image Section */}
                             <div className="relative w-full aspect-square overflow-hidden bg-gray-100 border-b border-gray-200">
                                 <img 
                                     src={member.imageUrl} 
                                     alt={member.name} 
-                                    className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 transition-all duration-500" 
+                                    className="w-full h-full object-cover  brightness-90 group-hover: transition-all duration-500" 
                                 />
                             </div>
 
                             {/* Text Section */}
-                            <div className="p-10 w-full flex flex-col items-center">
-                                <h4 className="text-lg font-heading font-black text-govBlack uppercase tracking-tighter mb-2 group-hover:text-govRed transition-colors">
+                            <div className="p-8 w-full flex flex-col items-center">
+                                <h4 className="text-md font-heading font-black text-govBlack uppercase tracking-tighter mb-2 group-hover:text-govRed transition-colors leading-tight">
                                     {member.name}
                                 </h4>
                                 
-                                {/* Institutional Accent Line */}
-                                <div className="w-10 h-1 bg-govBlack mb-4 group-hover:bg-govRed group-hover:w-16 transition-all duration-300"></div>
+                                <div className="w-8 h-1 bg-govBlack mb-4 group-hover:bg-govRed group-hover:w-12 transition-all duration-300"></div>
                                 
-                                <p className="text-[10px] font-heading font-black text-gray-500 uppercase tracking-[0.2em] leading-tight">
+                                <p className="text-[9px] font-heading font-black text-gray-500 uppercase tracking-[0.2em] leading-tight">
                                     {member.designation}
                                 </p>
                             </div>
                         </div>
                     ))}
                 </div>
-                
             </div>
         </section>
     );

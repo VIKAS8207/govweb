@@ -58,7 +58,7 @@
                   <h2 className="text-2xl font-heading font-black uppercase tracking-tight text-govBlack">Project </h2>
                 </div>
                 <button className="text-govRed text-[10px] font-heading font-black uppercase tracking-widest hover:text-govBlack transition-all">
-                  Access Archive »
+                  View More »
                 </button>
               </div>
 
@@ -70,7 +70,7 @@
                       <th className="px-6 py-4 border-r border-white/10">Project Details & Reference</th>
                       <th className="px-6 py-4 border-r border-white/10 text-center">Status</th>
                       <th className="px-6 py-4 border-r border-white/10 text-right">Deployment</th>
-                      <th className="px-6 py-4 text-right">Archive</th>
+                      <th className="px-6 py-4 text-right">PDF</th>
                     </tr>
                   </thead>
                   <tbody className="text-[12px]">
@@ -99,7 +99,22 @@
                         <td className="px-6 py-5 text-right">
                           <button className="text-[9px] font-heading font-black uppercase tracking-widest text-gray-400 hover:text-govRed transition-all flex items-center justify-end gap-2 ml-auto">
                             <span>PDF</span>
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            <svg 
+  className="w-5 h-5" 
+  fill="none" 
+  stroke="currentColor" 
+  viewBox="0 0 24 24" 
+  strokeWidth="3.5" 
+  strokeLinecap="round" 
+  strokeLinejoin="round"
+>
+  {/* Arrow Stem */}
+  <path d="M12 3v11" />
+  {/* Arrow Head */}
+  <path d="M7 9l5 5 5-5" />
+  {/* Bottom Tray */}
+  <path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" />
+</svg>
                           </button>
                         </td>
                       </tr>
@@ -179,6 +194,8 @@
   );
 }
 
+
+
 export function SchemeDirectory() {
   const [expandedId, setExpandedId] = React.useState(null);
 
@@ -187,38 +204,43 @@ export function SchemeDirectory() {
       id: 0,
       name: "Parivahan Scheme 2026", 
       tag: "WELFARE", 
-      progress: 85,
-      desc: "Details of Employees Status as of 01.03.2026. Total employees: 2,943 (2,738 from 2003 partition + 205 court reinstated). Remaining: 238 (224 on deputation, 14 in CIDC) after 1,376 VRS, 1,171 retired/deceased, and 158 absorbed."
+      points: [
+        "Details of Employees Status as of 01.03.2026: Total workforce identified at 2,943 personnel.",
+        "Partition analysis: 2,738 from 2003 division protocols + 205 court-ordered reinstatements.",
+        "Current balance: 238 remaining (224 on active deputation, 14 retained in CIDC) after VRS and absorption."
+      ]
     },
     { 
       id: 1,
       name: "Mukhya Mantri Nirman Shramik Pension", 
       tag: "SOCIAL SECURITY", 
-      progress: 42,
-      desc: "A statutory pension framework designed specifically for registered construction workers above the age of 60. This scheme ensures long-term financial stability and dignity for the labor force that has contributed to the state's urban and rural infrastructure development."
+      points: [
+        "Statutory pension framework targeting registered construction labor above the age of 60.",
+        "Mandatory contribution matching: State government provides 50% matching for all voluntary deposits.",
+        "Direct Benefit Transfer (DBT) integration ensures zero-leakage distribution to verified Aadhaar-linked accounts."
+      ]
     },
     { 
       id: 2,
       name: "State Apprenticeship Promotion", 
       tag: "SKILLS", 
-      progress: 100,
-      desc: "Direct coordination between CIDC and industrial partners to provide high-level on-site technical training. The program focuses on civil engineering, BIM modeling, and high-tech equipment operation, ensuring all candidates meet certified state deployment protocols."
+      points: [
+        "Technical synchronization between CIDC and Tier-1 industrial partners for on-site apprenticeship.",
+        "Curriculum focus: BIM Modeling, Civil Engineering precision, and high-tech heavy equipment operation.",
+        "Post-training certification allows for prioritized deployment in state-sponsored urban development projects."
+      ]
     }
   ];
 
-  // Locked GOV UI Max Width (7xl / 1280px)
   const containerStyle = { maxWidth: '1280px' };
 
   return (
     <section className="py-20 bg-white border-t-2 border-govGray font-sans">
       <div style={containerStyle} className="mx-auto px-6">
         
-        {/* GOV UI HEADER HIERARCHY */}
+        {/* GOV UI HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-start mb-16">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-4 mb-2">
-
-            </div>
             <h2 className="text-4xl md:text-5xl font-heading font-black text-govBlack uppercase tracking-tighter leading-none mb-4">
               Scheme <span className="text-govRed">Directory</span>
             </h2>
@@ -228,22 +250,20 @@ export function SchemeDirectory() {
           </div>
         </div>
 
-        {/* ACCORDION REGISTRY - Institutional Table Frame */}
+        {/* ACCORDION REGISTRY */}
         <div className="border-t-2 border-govBlack border-x border-gray-200">
           {schemes.map((item) => (
             <div key={item.id} className="border-b border-gray-200">
               
-              {/* Row Header - High Density Grid */}
+              {/* Row Header */}
               <div 
                 onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
                 className={`flex flex-col md:flex-row items-center justify-between py-8 px-8 cursor-pointer transition-all duration-300 ${expandedId === item.id ? 'bg-govGray' : 'bg-white hover:bg-govGray/50'}`}
               >
                 <div className="flex items-center gap-8 w-full md:w-2/5">
-                  {/* Status Indicator Dot */}
                   <div className={`w-3 h-3 transition-all duration-500 ${expandedId === item.id ? 'bg-govRed' : 'bg-gray-300'}`}></div>
-                  
                   <div>
-                    <h3 className="font-heading font-black text-govBlack uppercase tracking-tight text-xl leading-none mb-2 group-hover:text-govRed transition-colors">
+                    <h3 className="font-heading font-black text-govBlack uppercase tracking-tight text-xl leading-none mb-2">
                       {item.name}
                     </h3>
                     <span className="bg-govBlack text-white text-[9px] font-heading font-black px-2 py-0.5 tracking-widest uppercase">
@@ -252,10 +272,7 @@ export function SchemeDirectory() {
                   </div>
                 </div>
                 
-                {/* Deployment Analytics Strip */}
                 <div className="flex flex-1 items-center justify-end gap-12 w-full mt-6 md:mt-0">
-
-                  {/* GOV UI Toggle Block */}
                   <button 
                     className={`w-12 h-12 flex items-center justify-center transition-all duration-300 border-2
                       ${expandedId === item.id ? 'bg-govRed border-govRed text-white shadow-md' : 'bg-white border-govBlack text-govBlack hover:bg-govBlack hover:text-white'}`}
@@ -277,33 +294,27 @@ export function SchemeDirectory() {
               >
                 <div className="p-12 border-t border-gray-300 bg-white grid grid-cols-1 lg:grid-cols-12 gap-12">
                   
-                  {/* Meta Data Ledger (Left) */}
-                  <div className="lg:col-span-4 space-y-6">
-                     <div className="grid grid-cols-1 gap-4">
-                      <div className="bg-govGray p-4 border border-gray-200">
-                        <p className="text-[9px] font-heading font-black text-gray-400 uppercase tracking-widest mb-1">Filing Reference</p>
-                        <p className="text-sm font-heading font-black text-govBlack">CIDC-REG-2026-0{item.id + 1}</p>
-                      </div>
-                      <div className="bg-govGray p-4 border border-gray-200">
-                        <p className="text-[9px] font-heading font-black text-gray-400 uppercase tracking-widest mb-1">Execution Status</p>
-                        <p className={`text-xs font-heading font-black ${item.progress === 100 ? 'text-green-700' : 'text-govRed'}`}>
-                           {item.progress === 100 ? '● FULLY DEPLOYED' : '○ UNDER IMPLEMENTATION'}
+                  {/* LEFT: CIRCLE POINT CONTENT */}
+                  <div className="lg:col-span-8 space-y-8">
+                    {item.points.map((point, pIdx) => (
+                      <div key={pIdx} className="flex gap-6 items-start">
+                        {/* Circle Point Symbol */}
+                        <div className="w-2 h-2 rounded-full bg-govRed mt-2 shrink-0"></div>
+                        <p className="text-[15px] text-gray-700 leading-relaxed font-sans font-medium uppercase text-justify">
+                          {point}
                         </p>
                       </div>
-                    </div>
+                    ))}
                   </div>
 
-                  {/* Descriptive text (Right) */}
-                  <div className="lg:col-span-8">
-                    <p className="text-[16px] text-gray-700 leading-relaxed font-sans font-medium text-justify uppercase">
-                      {item.desc}
-                    </p>
-                    
-                    <div className="mt-12 flex flex-wrap gap-4">
-                      <button className="bg-govBlack text-white px-10 py-4 text-[11px] font-heading font-black uppercase tracking-[0.2em] hover:bg-govRed transition-all">
-                        Download (PDF) »
-                      </button>
-                    </div>
+                  {/* RIGHT: DOWNLOAD ACTION */}
+                  <div className="lg:col-span-4 flex items-start lg:justify-end">
+                    <button className="w-full lg:w-auto bg-govBlack text-white px-10 py-5 font-heading font-black text-[11px] uppercase tracking-[0.2em] hover:bg-govRed transition-all flex items-center justify-center gap-4 shadow-md active:scale-95">
+                      Download (PDF) 
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                        <path d="M12 5v14m7-7l-7 7-7-7" />
+                      </svg>
+                    </button>
                   </div>
 
                 </div>
@@ -312,10 +323,10 @@ export function SchemeDirectory() {
           ))}
         </div>
 
-        {/* Registry Footer Metadata */}
+        {/* Registry Footer */}
         <div className="mt-8 flex justify-between items-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
             <p>Last Audited: April 2026</p>
-            <p>Certified by CIDC Raipur Management</p>
+            <p>Statutory Disclosure: NIC-REG-V4</p>
         </div>
       </div>
     </section>

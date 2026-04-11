@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+
 export function RTIPortal() {
   // Locked GOV UI Max Width (7xl / 1280px) for institutional consistency
   const containerStyle = { maxWidth: '1280px' };
+
+  // State to control table expansion
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const manuals = [
     { title: "Organization & Functions", id: "M01" },
@@ -14,6 +18,9 @@ export function RTIPortal() {
     { title: "Subsidy Programs", id: "M07" },
     { title: "Contact of CPIO/PIO", id: "M08" }
   ];
+
+  // Logic to show either 5 items or the full list
+  const displayedManuals = isExpanded ? manuals : manuals.slice(0, 5);
 
   return (
     <main id="main-content" className="flex-1 w-full py-16 bg-white font-sans selection:bg-govRed selection:text-white">
@@ -51,62 +58,78 @@ export function RTIPortal() {
             Statutory <span className="text-govRed">Registry</span>
           </h4>
         </div>
+
+        {/* Table Footer Metadata Strip */}
+        <div className="mb-4 flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] px-2">
+            <p>Section 4(1)(b) Compliance Registry</p>
+            <p>Format: Technical PDF/A</p>
+        </div>
         
         {/* 4. STATUTORY MANUAL REGISTRY - Slim GOV UI Table */}
-<div className="border border-gray-300 overflow-hidden shadow-sm bg-white">
-  <table className="w-full text-left border-collapse font-sans">
-    <thead>
-      <tr className="bg-govBlack text-white text-[11px] font-heading uppercase tracking-widest">
-        <th className="px-6 py-4 border-r border-white/10 w-24">Reference</th>
-        <th className="px-6 py-4 border-r border-white/10">Manual Title / Category Description</th>
-        <th className="px-6 py-4 text-right w-40">Statutory Action</th>
-      </tr>
-    </thead>
-    <tbody className="text-[12px]">
-      {manuals.map((manual, i) => (
-        <tr 
-          key={i} 
-          className="border-b border-gray-200 hover:bg-govGray transition-colors group cursor-pointer"
-        >
-          {/* Reference ID Column */}
-          <td className="px-6 py-4 border-r border-gray-100">
-            <span className="text-govRed font-heading font-black tracking-widest">
-              {manual.id}
-            </span>
-          </td>
+        <div className="border border-gray-300 overflow-hidden shadow-sm bg-white">
+          <table className="w-full text-left border-collapse font-sans">
+            <thead>
+              <tr className="bg-govBlack text-white text-[11px] font-heading uppercase tracking-widest">
+                <th className="px-6 py-4 border-r border-white/10">Manual Title / Category Description</th>
+                <th className="px-6 py-4 text-right w-48">Statutory Action</th>
+              </tr>
+            </thead>
+            <tbody className="text-[12px]">
+              {displayedManuals.map((manual, i) => (
+                <tr 
+                  key={i} 
+                  className="border-b border-gray-200 hover:bg-govGray transition-colors group"
+                >
+                  {/* Manual Title Column */}
+                  <td className="px-6 py-4 border-r border-gray-100">
+                    <div className="flex items-center gap-4">
+                      <div className="w-1 h-4 bg-gray-200 group-hover:bg-govRed transition-all"></div>
+                      <h4 className="font-heading font-black text-govBlack uppercase tracking-tight group-hover:text-govRed transition-colors">
+                        {manual.title}
+                      </h4>
+                    </div>
+                  </td>
 
-          {/* Manual Title Column */}
-          <td className="px-6 py-4 border-r border-gray-100">
-            <div className="flex items-center gap-4">
-              <div className="w-1 h-4 bg-gray-200 group-hover:bg-govRed transition-all"></div>
-              <h4 className="font-heading font-black text-govBlack uppercase tracking-tight group-hover:text-govRed transition-colors">
-                {manual.title}
-              </h4>
-            </div>
-          </td>
+                  {/* Action Column with Updated PDF SVG */}
+                  <td className="px-6 py-4 text-right">
+                    <button className="cursor-pointer inline-flex items-center gap-3 text-[10px] font-heading font-black text-gray-400 hover:text-govRed group-hover:text-govRed uppercase tracking-widest transition-colors duration-300">
+                      <span>PDF</span>
+                      <svg 
+                        className="w-5 h-5" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24" 
+                        strokeWidth="3.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      >
+                        {/* Arrow Stem */}
+                        <path d="M12 3v11" />
+                        {/* Arrow Head */}
+                        <path d="M7 9l5 5 5-5" />
+                        {/* Bottom Tray */}
+                        <path d="M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-          {/* Action Column */}
-          <td className="px-6 py-4 text-right">
-            <button className="inline-flex items-center gap-3 text-[10px] font-heading font-black text-gray-400 group-hover:text-govBlack uppercase tracking-widest transition-all">
-              <span>Download Manual</span>
-              <div className="w-8 h-8 flex items-center justify-center border-2 border-gray-200 group-hover:border-govBlack group-hover:bg-govBlack group-hover:text-white transition-all">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="4" viewBox="0 0 24 24">
-                  <path d="M12 5v14m7-7l-7 7-7-7" />
-                </svg>
-              </div>
+        {/* View All / View Less Toggle */}
+        {manuals.length > 5 && (
+          <div className="flex justify-end mt-4 mb-2">
+            <button 
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="cursor-pointer text-[10px] font-heading font-black text-govBlack hover:text-govRed uppercase tracking-widest transition-colors border-b-2 border-govBlack hover:border-govRed pb-1"
+            >
+              {isExpanded ? '« View Less Records' : 'View All Records »'}
             </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+          </div>
+        )}
 
-{/* Table Footer Metadata Strip */}
-<div className="mt-4 flex justify-between items-center text-[9px] font-bold text-gray-400 uppercase tracking-[0.2em] px-2">
-    <p>Section 4(1)(b) Compliance Registry</p>
-    <p>Format: Technical PDF/A</p>
-</div>
       </section>
     </main>
   );
