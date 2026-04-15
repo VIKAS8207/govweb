@@ -4,8 +4,42 @@ export function RentPaymentGateway() {
   const [paymentCycle, setPaymentCycle] = useState('Monthly');
   const [selectedYear, setSelectedYear] = useState('2026');
   const [selectedMonth, setSelectedMonth] = useState('April');
+  
+  // Custom Date States
+  const [customFrom, setCustomFrom] = useState('');
+  const [customTo, setCustomTo] = useState('');
 
-  const containerStyle = { maxWidth: '1000px' }; // Reduced width for "Bill" focus
+  const containerStyle = { maxWidth: '1000px' }; 
+  const BASE_RENT = 4500;
+
+  // Logic to calculate month difference for Custom dates
+  const calculateCustomMonths = (from, to) => {
+    if (!from || !to) return 0;
+    const d1 = new Date(from);
+    const d2 = new Date(to);
+    if (d2 < d1) return 0;
+    
+    // Calculate total months inclusive of the start and end month
+    const months = (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth()) + 1;
+    return months > 0 ? months : 0;
+  };
+
+  // Dynamic Calculation Engine
+  let multiplier = 0;
+  let tenureText = '';
+
+  if (paymentCycle === 'Monthly') {
+    multiplier = 1;
+    tenureText = `${selectedMonth} ${selectedYear}`;
+  } else if (paymentCycle === 'Yearly') {
+    multiplier = 12;
+    tenureText = `Financial Year ${selectedYear}`;
+  } else if (paymentCycle === 'Custom') {
+    multiplier = calculateCustomMonths(customFrom, customTo);
+    tenureText = (customFrom && customTo) ? `FROM ${customFrom} TO ${customTo}` : 'SELECT DATE RANGE';
+  }
+
+  const totalAmount = BASE_RENT * multiplier;
 
   return (
     <main className="min-h-screen bg-govGray py-12 font-sans antialiased text-govBlack selection:bg-govRed selection:text-white">
@@ -36,16 +70,20 @@ export function RentPaymentGateway() {
             </h3>
 
             <div className="space-y-8">
-              {/* Cycle */}
+              {/* 01. Statutory Cycle */}
               <div>
                 <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">01. Statutory Cycle</label>
-                <div className="flex gap-2">
-                  {['Monthly', 'Quarterly', 'Yearly'].map((cycle) => (
+                <div className="flex flex-wrap gap-2">
+                  {['Monthly', 'Yearly', 'Custom'].map((cycle) => (
                     <button 
                       key={cycle}
-                      onClick={() => setPaymentCycle(cycle)}
-                      className={`px-6 py-3 text-[10px] font-heading font-black uppercase tracking-widest border-2 transition-all
-                        ${paymentCycle === cycle ? 'bg-govBlack text-white border-govBlack' : 'bg-white text-gray-400 border-gray-200'}`}
+                      onClick={() => {
+                        setPaymentCycle(cycle);
+                        // Reset custom dates if switching away
+                        if(cycle !== 'Custom') { setCustomFrom(''); setCustomTo(''); }
+                      }}
+                      className={`px-8 py-3 text-[10px] font-heading font-black uppercase tracking-widest border-2 transition-all
+                        ${paymentCycle === cycle ? 'bg-govBlack text-white border-govBlack shadow-md' : 'bg-white text-gray-400 border-gray-200 hover:border-govBlack hover:text-govBlack'}`}
                     >
                       {cycle}
                     </button>
@@ -53,30 +91,91 @@ export function RentPaymentGateway() {
                 </div>
               </div>
 
-              {/* Tenure selectors */}
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">02. Financial Year</label>
-                  <select 
-                    value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
-                    className="w-full bg-govGray border border-gray-300 p-3 text-[11px] font-heading font-black uppercase outline-none focus:border-govBlack"
-                  >
-                    <option>2024</option><option>2025</option><option>2026</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">03. Tenure Month</label>
-                  <select 
-                    value={selectedMonth}
-                    onChange={(e) => setSelectedMonth(e.target.value)}
-                    className="w-full bg-govGray border border-gray-300 p-3 text-[11px] font-heading font-black uppercase outline-none focus:border-govBlack"
-                  >
-                    {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map(m => (
-                      <option key={m}>{m}</option>
-                    ))}
-                  </select>
-                </div>
+              {/* 02. Dynamic Tenure Selectors */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 min-h-[100px]">
+                
+                {/* --- MONTHLY LOGIC --- */}
+                {paymentCycle === 'Monthly' && (
+                  <>
+                    <div>
+                      <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">02. Select Year</label>
+                      <div className="relative">
+                        <select 
+                          value={selectedYear}
+                          onChange={(e) => setSelectedYear(e.target.value)}
+                          className="w-full bg-govGray border border-gray-300 p-4 pr-10 text-[11px] font-heading font-black uppercase outline-none focus:border-govRed transition-colors cursor-pointer appearance-none"
+                        >
+                          <option>2025</option><option>2026</option><option>2027</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-govRed">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">03. Select Month</label>
+                      <div className="relative">
+                        <select 
+                          value={selectedMonth}
+                          onChange={(e) => setSelectedMonth(e.target.value)}
+                          className="w-full bg-govGray border border-gray-300 p-4 pr-10 text-[11px] font-heading font-black uppercase outline-none focus:border-govRed transition-colors cursor-pointer appearance-none"
+                        >
+                          {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map(m => (
+                            <option key={m}>{m}</option>
+                          ))}
+                        </select>
+                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-govRed">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* --- YEARLY LOGIC --- */}
+                {paymentCycle === 'Yearly' && (
+                  <div className="sm:col-span-2">
+                    <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">02. Select Financial Year (12 Months)</label>
+                    <div className="relative">
+                      <select 
+                        value={selectedYear}
+                        onChange={(e) => setSelectedYear(e.target.value)}
+                        className="w-full bg-govGray border border-gray-300 p-4 pr-10 text-[11px] font-heading font-black uppercase outline-none focus:border-govRed transition-colors cursor-pointer appearance-none"
+                      >
+                        <option>2025</option><option>2026</option><option>2027</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-govRed">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* --- CUSTOM LOGIC --- */}
+                {paymentCycle === 'Custom' && (
+                  <>
+                    <div>
+                      <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">02. Date From</label>
+                      <input 
+                        type="date"
+                        value={customFrom}
+                        onChange={(e) => setCustomFrom(e.target.value)}
+                        className="w-full bg-govGray border border-gray-300 p-4 text-[11px] font-heading font-black uppercase outline-none focus:border-govRed transition-colors cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[9px] font-heading font-black uppercase text-gray-400 block mb-3">03. Date To</label>
+                      <input 
+                        type="date"
+                        value={customTo}
+                        onChange={(e) => setCustomTo(e.target.value)}
+                        min={customFrom} // Prevents selecting a 'To' date earlier than 'From'
+                        className="w-full bg-govGray border border-gray-300 p-4 text-[11px] font-heading font-black uppercase outline-none focus:border-govRed transition-colors cursor-pointer"
+                      />
+                    </div>
+                  </>
+                )}
+                
               </div>
             </div>
           </div>
@@ -91,30 +190,42 @@ export function RentPaymentGateway() {
               <div className="space-y-4 font-mono text-[11px] font-bold uppercase text-gray-600">
                 <div className="flex justify-between">
                   <span>Base Allotment Rent</span>
-                  <span className="text-govBlack">₹ 4,500.00</span>
+                  <span className="text-govBlack">₹ {BASE_RENT.toLocaleString('en-IN')}.00</span>
                 </div>
                 <div className="flex justify-between border-b border-dashed border-gray-200 pb-4">
                   <span>Cycle Adjustment</span>
-                  <span className="text-govBlack">1.00x</span>
+                  <span className={`${multiplier === 0 ? 'text-govRed' : 'text-govBlack'}`}>
+                    {multiplier.toFixed(2)}x (Months)
+                  </span>
                 </div>
                 <div className="flex justify-between pt-2">
-                  <span className="text-gray-400 font-sans">Tenure</span>
-                  <span className="text-govBlack font-sans">{selectedMonth} {selectedYear}</span>
+                  <span className="text-gray-400 font-sans tracking-widest text-[9px] mt-1">Tenure</span>
+                  <span className="text-govBlack font-sans text-right max-w-[200px] leading-tight">
+                    {tenureText}
+                  </span>
                 </div>
               </div>
 
               <div className="mt-10 p-6 bg-govGray border border-gray-200 text-center">
                 <span className="text-[9px] font-heading font-black uppercase tracking-widest text-gray-400 block mb-1">Total Statutory Dues</span>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-heading font-black text-govRed tracking-tighter">₹ 4,500</span>
+                  <span className="text-4xl font-heading font-black text-govRed tracking-tighter">
+                    ₹ {totalAmount.toLocaleString('en-IN')}
+                  </span>
                   <span className="text-lg font-heading font-black text-govRed opacity-40">.00</span>
                 </div>
               </div>
             </div>
 
             <div className="pt-8">
-              <button className="w-full bg-govBlack text-white py-5 font-heading font-black text-[11px] uppercase tracking-[0.3em] hover:bg-govRed transition-all shadow-md active:scale-95">
-                Authorize Payment »
+              <button 
+                disabled={totalAmount === 0}
+                className={`w-full py-5 font-heading font-black text-[12px] uppercase tracking-[0.3em] transition-all shadow-md active:scale-95 flex items-center justify-center gap-3
+                  ${totalAmount === 0 
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                    : 'bg-govBlack text-white hover:bg-govRed cursor-pointer'}`}
+              >
+                Proceed to Pay »
               </button>
               <p className="mt-4 text-[8px] font-sans font-bold text-gray-400 uppercase tracking-widest text-center leading-relaxed">
                 Subject to CIDC Audit & Statutory Verification.
@@ -124,9 +235,9 @@ export function RentPaymentGateway() {
         </div>
 
         {/* 3. MINIMAL ASSISTANCE BAR */}
-        <div className="mt-6 flex flex-col sm:flex-row justify-between items-center bg-white border border-gray-200 p-4 gap-4">
+        <div className="mt-6 flex flex-col sm:flex-row justify-between items-center bg-white border border-gray-200 p-4 gap-4 shadow-sm">
            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+              <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
               <p className="text-[10px] font-heading font-black text-gray-500 uppercase tracking-widest">Payment Gateway: ONLINE & ACTIVE</p>
            </div>
            <p className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-widest">Support: info@cidc.cg.gov.in</p>
@@ -136,5 +247,3 @@ export function RentPaymentGateway() {
     </main>
   );
 }
-
- 
