@@ -39,33 +39,42 @@ export function GovernancePortal() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-2 border-govBlack bg-white shadow-sm overflow-hidden">
-            {/* KPI 01 */}
+            {/* KPI 01: Kept exactly the same width */}
             <div className="p-10 border-b-2 md:border-b-0 md:border-r-2 border-govBlack bg-govGray flex flex-col justify-between h-52">
               <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-widest">Total Govt. Grant</span>
               <h3 className="text-5xl font-heading font-black text-govRed tracking-tighter leading-none">₹ 17.00 <span className="text-xl">Cr</span></h3>
               <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest font-sans">Disbursed: FY 2025-2026</p>
             </div>
             
-            {/* KPI 02 */}
-            <div className="p-10 border-b-2 md:border-b-0 md:border-r-2 border-govBlack bg-white flex flex-col justify-between h-52">
-              <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-widest">Fund Utilization</span>
-              <div>
-                <div className="flex justify-between mb-3">
-                  <span className="text-2xl font-heading font-black text-govBlack uppercase">68.4%</span>
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest font-heading pt-2">Target: 100%</span>
+            {/* KPI 02 & 03 MERGED: Quarterly Amount Received */}
+            <div className="md:col-span-2 p-10 bg-white flex flex-col justify-between h-52">
+              <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-widest mb-4">Quarterly Amount Received</span>
+              
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 h-full items-end pb-2">
+                {/* Q1 */}
+                <div className="border-l-4 border-govBlack pl-4">
+                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block mb-1">Q1 (Apr-Jun)</span>
+                  <span className="text-2xl font-heading font-black text-govBlack tracking-tighter leading-none block">₹ 4.25 <span className="text-sm">Cr</span></span>
                 </div>
-                <div className="h-4 w-full bg-govGray border border-gray-200">
-                  <div className="h-full bg-govBlack transition-all duration-1000" style={{ width: '68.4%' }}></div>
+                
+                {/* Q2 */}
+                <div className="border-l-4 border-govBlack pl-4">
+                  <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest block mb-1">Q2 (Jul-Sep)</span>
+                  <span className="text-2xl font-heading font-black text-govBlack tracking-tighter leading-none block">₹ 4.25 <span className="text-sm">Cr</span></span>
+                </div>
+
+                {/* Q3 */}
+                <div className="border-l-4 border-gray-200 pl-4 opacity-60">
+                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Q3 (Oct-Dec)</span>
+                  <span className="text-xl font-heading font-black text-gray-400 tracking-tighter uppercase leading-none block">Awaiting</span>
+                </div>
+
+                {/* Q4 */}
+                <div className="border-l-4 border-gray-200 pl-4 opacity-60">
+                  <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Q4 (Jan-Mar)</span>
+                  <span className="text-xl font-heading font-black text-gray-400 tracking-tighter uppercase leading-none block">Awaiting</span>
                 </div>
               </div>
-              <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest font-sans">Quarterly Tracking Active</p>
-            </div>
-
-            {/* KPI 03 (Updated with numbers) */}
-            <div className="p-10 bg-white flex flex-col justify-between h-52 group transition-all duration-300">
-              <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-widest ">Compliance Score</span>
-              <h3 className="text-5xl font-heading font-black text-govBlack tracking-tighter leading-none">100<span className="text-xl">%</span></h3>
-              <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest font-sans">Zero Open Audit Observations</p>
             </div>
           </div>
         </section>
@@ -73,7 +82,7 @@ export function GovernancePortal() {
         {/* --- SECTION 3: SHAREHOLDER & MEETING LEDGERS --- */}
         <section className="space-y-12">
           
-          {/* Shareholding Position - Now Full Width */}
+          {/* Shareholding Position - Full Width */}
           <div className="border border-gray-300 bg-white shadow-sm overflow-hidden flex flex-col">
              <div className="bg-govBlack p-5 text-white font-heading font-black uppercase text-xs tracking-widest border-b-4 border-govRed">
                 Shareholding Pattern
@@ -102,7 +111,7 @@ export function GovernancePortal() {
              </div>
           </div>
 
-          {/* Meeting Registry Table - Now Full Width */}
+          {/* Meeting Registry Table - Full Width */}
           <div className="flex flex-col">
             <div className="border border-gray-300 bg-white shadow-sm flex flex-col">
                <div className="bg-govBlack p-5 text-white font-heading font-black uppercase text-xs tracking-widest border-b-4 border-govRed flex justify-between">
@@ -140,33 +149,18 @@ export function GovernancePortal() {
                </div>
             </div>
 
-            {/* FLOATING TABLE FOOTER / PAGINATION (Meeting Registry) */}
+            {/* FLOATING TABLE FOOTER / PAGINATION (Meeting Registry) - UPDATED TO SIMPLIFIED ARROWS */}
             <div className="flex justify-between items-center px-2 mt-4">
               <p className="text-[9px] font-heading font-black text-gray-500 uppercase tracking-[0.4em]">Showing 1-3 of 24 Records</p>
-              <div className="flex gap-1 items-center">
+              <div className="flex items-center shadow-sm">
                 {/* Previous Arrow */}
-                <button className="w-8 h-8 flex items-center justify-center bg-white border border-gray-300 text-gray-400 hover:border-govBlack hover:text-govBlack transition-all">
+                <button className="w-10 h-10 flex items-center justify-center bg-white border border-gray-300 border-r-0 text-gray-400 hover:border-govBlack hover:text-govBlack hover:z-10 transition-all">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-
-                {/* Page Numbers */}
-                {[1, 2, 3, '...', 12].map((page, index) => (
-                  <button 
-                    key={index} 
-                    disabled={page === '...'}
-                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-heading font-black transition-all border
-                      ${page === 1 ? 'bg-govBlack text-white border-govBlack' : 
-                        page === '...' ? 'bg-transparent text-gray-400 border-transparent cursor-default' : 
-                        'bg-white text-gray-400 border-gray-300 hover:border-govBlack hover:text-govBlack'}`}
-                  >
-                    {page}
-                  </button>
-                ))}
-
                 {/* Next Arrow */}
-                <button className="w-8 h-8 flex items-center justify-center bg-white border border-gray-300 text-gray-400 hover:border-govBlack hover:text-govBlack transition-all">
+                <button className="w-10 h-10 flex items-center justify-center bg-white border border-gray-300 text-gray-400 hover:border-govBlack hover:text-govBlack hover:z-10 transition-all">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
@@ -183,9 +177,6 @@ export function GovernancePortal() {
                 <h2 className="text-2xl font-heading font-black uppercase tracking-tight text-govBlack">Financial Audit & <span className="text-govRed">Balance Sheets</span></h2>
                 <p className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-widest mt-1">Authorized Statutory Disclosure Registry</p>
             </div>
-            <button className="text-[10px] font-heading font-black text-govRed border-b-2 border-govRed hover:text-govBlack hover:border-govBlack transition-all pb-1 uppercase tracking-widest">
-                Access Archives »
-            </button>
           </div>
 
           <div className="flex flex-col">
@@ -224,33 +215,18 @@ export function GovernancePortal() {
               </table>
             </div>
 
-            {/* FLOATING TABLE FOOTER / PAGINATION (Financial Audit) */}
+            {/* FLOATING TABLE FOOTER / PAGINATION (Financial Audit) - UPDATED TO SIMPLIFIED ARROWS */}
             <div className="flex justify-between items-center px-2 mt-4">
               <p className="text-[9px] font-heading font-black text-gray-500 uppercase tracking-[0.4em]">Showing 1-3 of 15 Records</p>
-              <div className="flex gap-1 items-center">
+              <div className="flex items-center shadow-sm">
                 {/* Previous Arrow */}
-                <button className="w-8 h-8 flex items-center justify-center bg-white border border-gray-300 text-gray-400 hover:border-govBlack hover:text-govBlack transition-all">
+                <button className="w-10 h-10 flex items-center justify-center bg-white border border-gray-300 border-r-0 text-gray-400 hover:border-govBlack hover:text-govBlack hover:z-10 transition-all">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
-
-                {/* Page Numbers */}
-                {[1, 2, 3, '...', 5].map((page, index) => (
-                  <button 
-                    key={index} 
-                    disabled={page === '...'}
-                    className={`w-8 h-8 flex items-center justify-center text-[10px] font-heading font-black transition-all border
-                      ${page === 1 ? 'bg-govBlack text-white border-govBlack' : 
-                        page === '...' ? 'bg-transparent text-gray-400 border-transparent cursor-default' : 
-                        'bg-white text-gray-400 border-gray-300 hover:border-govBlack hover:text-govBlack'}`}
-                  >
-                    {page}
-                  </button>
-                ))}
-
                 {/* Next Arrow */}
-                <button className="w-8 h-8 flex items-center justify-center bg-white border border-gray-300 text-gray-400 hover:border-govBlack hover:text-govBlack transition-all">
+                <button className="w-10 h-10 flex items-center justify-center bg-white border border-gray-300 text-gray-400 hover:border-govBlack hover:text-govBlack hover:z-10 transition-all">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>

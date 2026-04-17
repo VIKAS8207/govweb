@@ -173,7 +173,7 @@ export function PaymentConfirmation() {
           {/* Action & Total Trigger */}
           <div className="lg:w-[400px] bg-white p-10 flex flex-col justify-center gap-8 relative">
             {/* Background Accent */}
-            <div className="absolute top-0 right-0 w-16 h-16 bg-govGray border-l-2 border-b-2 border-gray-200"></div>
+            
 
             <div className="relative z-10 border-b-4 border-govRed pb-6">
               <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-widest block mb-2">
