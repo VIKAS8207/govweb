@@ -21,12 +21,7 @@ const ShopBillingLedger = ({ data, shopId }) => {
             Historical Arrears & Monthly Dues Registry
           </p>
         </div>
-        <div className="bg-white/10 px-4 py-2 border border-white/20 text-right">
-          <p className="text-[9px] font-heading font-black uppercase tracking-widest text-gray-400 mb-1">Total Outstanding</p>
-          {/* We will calculate this dynamically in the table, but GOV UI often puts a badge here. 
-              For now, we leave the main calculation at the bottom as requested. */}
-          <p className="text-sm font-mono font-bold text-govRed tracking-tighter">REFER TO BOTTOM LEDGER</p>
-        </div>
+        
       </div>
 
       {/* Very Dense Institutional Grid */}
@@ -94,11 +89,11 @@ const ShopBillingLedger = ({ data, shopId }) => {
           
           {/* Grand Total Footer Row */}
           <tfoot>
-            <tr className="bg-govBlack text-white border-t-4 border-govRed font-mono">
+            <tr className="bg-white text-Black border-t-4 border-govRed font-mono">
               <td colSpan="13" className="py-5 px-6 text-right font-heading font-black uppercase text-[12px] tracking-widest">
                 Cumulative Pending Arrears (Grand Total):
               </td>
-              <td className="py-5 px-4 text-lg font-bold text-govRed tracking-tighter bg-gray-900 border-l-2 border-govBlack">
+              <td className="py-5 px-4 text-lg font-bold text-govRed tracking-tighter bg-white-900 border-l-2 border-govBlack">
                 ₹ {grandTotalPending.toFixed(2)}
               </td>
             </tr>
