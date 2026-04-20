@@ -17,6 +17,8 @@ import NoticePage from './pages/Notices';
 import EPFOPayment from './pages/EpfoPays';
 import ShopPage from './pages/Shops';
 import ShopBill from './pages/ShopPays';
+import AddEmployees from './pages/AddEmps';
+import PaymentDone from './pages/EpfoPaid';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
               <Route path="/epfo-payment" element={<EPFOPayment />} />
               <Route path="/vendor" element={<ShopPage />} />
               <Route path="/shoppay" element={<ShopBill />} />
+              <Route path="/add-employee" element={<AddEmployees />} /> 
+              <Route path="/payment-done" element={<PaymentDone />} />  
            </Routes>
         </main>
         <Flot />
