@@ -105,7 +105,7 @@ export function PaymentConfirmation() {
   return (
     <main className="min-h-screen bg-white py-16 font-sans antialiased text-govBlack selection:bg-govRed selection:text-white relative">
       <div style={containerStyle} className="mx-auto px-6 space-y-12">
-        
+      
         {/* --- SECTION 1: STATUTORY IDENTITY --- */}
         <header className="border-l-[8px] border-govRed pl-8 py-2">
           <div className="flex items-center gap-3 mb-2">
@@ -245,7 +245,7 @@ export function PaymentConfirmation() {
                 <p className="text-[12px] font-sans font-bold text-govBlack mt-1">Registry verified and ready for settlement.</p>
               </div>
               <Link 
-                to="/payment-gateway" 
+                to="/payment-done" 
                 className="w-full md:w-auto bg-govBlack text-white px-16 py-6 font-heading font-black text-[14px] uppercase tracking-[0.3em] hover:bg-govRed transition-all active:scale-95 shadow-md flex items-center justify-center gap-4 group"
               >
                 Proceed to Payment

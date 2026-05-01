@@ -1,7 +1,7 @@
 import React from 'react';
 import { AddEmployee } from '../AddEmp'; 
 
-const EpfoIn = () => {
+const AddEmployees = () => {
   return (
     <main className="min-h-screen bg-white">
       <AddEmployee />
@@ -10,4 +10,4 @@ const EpfoIn = () => {
 }
 
 // FIX: Export the component function name, NOT the < /> tags
-export default EpfoIn;
+export default AddEmployees;
