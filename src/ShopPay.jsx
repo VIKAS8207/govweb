@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export function RentPaymentGateway() {
   const [paymentCycle, setPaymentCycle] = useState('Monthly');
@@ -44,7 +45,6 @@ export function RentPaymentGateway() {
   return (
     <main className="min-h-screen bg-govGray py-12 font-sans antialiased text-govBlack selection:bg-govRed selection:text-white">
       <div style={containerStyle} className="mx-auto px-6">
-        
         {/* 1. OFFICIAL BILLING HEADER */}
         <header className="bg-white border-2 border-govBlack p-8 mb-0 flex justify-between items-start">
           <div className="border-l-4 border-govRed pl-6">
@@ -218,15 +218,15 @@ export function RentPaymentGateway() {
             </div>
 
             <div className="pt-8">
-              <button 
-                disabled={totalAmount === 0}
-                className={`w-full py-5 font-heading font-black text-[12px] uppercase tracking-[0.3em] transition-all shadow-md active:scale-95 flex items-center justify-center gap-3
-                  ${totalAmount === 0 
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
-                    : 'bg-govBlack text-white hover:bg-govRed cursor-pointer'}`}
-              >
-                Proceed to Pay »
-              </button>
+              <Link 
+  to={totalAmount === 0 ? "#" : "/shop-done"}
+  className={`w-full py-5 font-heading font-black text-[12px] uppercase tracking-[0.3em] transition-all shadow-md active:scale-95 flex items-center justify-center gap-3
+    ${totalAmount === 0 
+      ? 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none' 
+      : 'bg-govBlack text-white hover:bg-govRed cursor-pointer'}`}
+>
+  Proceed to Pay »
+</Link>
               <p className="mt-4 text-[8px] font-sans font-bold text-gray-400 uppercase tracking-widest text-center leading-relaxed">
                 Subject to CIDC Audit & Statutory Verification.
               </p>

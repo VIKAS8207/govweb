@@ -16,7 +16,11 @@ import Contacting from './pages/Contacts';
 import NoticePage from './pages/Notices';
 import EPFOPayment from './pages/EpfoPays';
 import ShopPage from './pages/Shops';
+
+// FIX: Gave these unique names
 import ShopBill from './pages/ShopPays';
+import ShopPaymentDone from './pages/ShopDones'; 
+
 import AddEmployees from './pages/AddEmps';
 import PaymentDone from './pages/EpfoPaid';
 
@@ -43,6 +47,9 @@ function App() {
               <Route path="/shoppay" element={<ShopBill />} />
               <Route path="/add-employee" element={<AddEmployees />} /> 
               <Route path="/payment-done" element={<PaymentDone />} />  
+              
+              {/* FIX: Routed to the newly named import */}
+              <Route path="/shop-done" element={<ShopPaymentDone />} />  
            </Routes>
         </main>
         <Flot />
