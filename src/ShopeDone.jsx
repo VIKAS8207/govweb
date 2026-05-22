@@ -108,21 +108,19 @@ export function ShopPaymentDone() {
             </div>
           </div>
 
-          {/* ACTION BUTTONS */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <button className="w-full sm:w-1/2 bg-govBlack text-white py-5 font-heading font-black text-[12px] uppercase tracking-[0.3em] hover:bg-govRed transition-all shadow-md active:scale-95 flex items-center justify-center gap-3 border-2 border-govBlack hover:border-govRed">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Download PDF
-            </button>
-            <button className="w-full sm:w-1/2 bg-white text-govBlack py-5 font-heading font-black text-[12px] uppercase tracking-[0.3em] border-2 border-govBlack hover:bg-gray-50 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-              </svg>
-              Print Receipt
-            </button>
-          </div>
+         {/* ACTION BUTTONS */}
+<div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-gray-100">
+  <p className="text-[11px] font-heading font-black text-govBlack uppercase tracking-[0.2em]">
+    Thank you for your payment.
+  </p>
+  
+  <button className="w-full sm:w-auto bg-govBlack text-white px-10 py-5 font-heading font-black text-[12px] uppercase tracking-[0.3em] hover:bg-govRed transition-all active:scale-95 shadow-md flex items-center justify-center gap-3 border-2 border-govBlack hover:border-govRed">
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+    </svg>
+    Download PDF
+  </button>
+</div>
 
         </div>
 
@@ -132,7 +130,7 @@ export function ShopPaymentDone() {
              This is a computer-generated receipt and requires no physical signature.
            </p>
            <button className="text-[10px] font-heading font-black text-govBlack hover:text-govRed uppercase tracking-widest underline decoration-2 underline-offset-4 transition-colors">
-             Return to Dashboard
+             Return to Homepage
            </button>
         </div>
 
