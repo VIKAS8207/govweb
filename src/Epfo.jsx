@@ -1,9 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function EPFOVerificationGateway() {
   // Locked GOV UI compact width for secure login portals
   const containerStyle = { maxWidth: '850px' };
+  
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+
+  // --- LOGIN HANDLER ---
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // 1. Create a dynamic user based on the email entered (or default to Admin)
+    const userName = email ? email.split('@')[0] : "Admin";
+    
+    const userData = {
+        name: userName.toUpperCase(),
+        initial: userName.charAt(0).toUpperCase() || "A"
+    };
+
+    // 2. Save to local storage (This triggers the Header to change to 'Logout')
+    localStorage.setItem('cidc_user', JSON.stringify(userData));
+
+    // 3. Redirect securely to the dashboard
+    navigate('/epfo-payment');
+  };
 
   return (
     <main className="min-h-screen bg-govGray flex items-center justify-center font-sans p-4 selection:bg-govRed selection:text-white">
@@ -40,7 +62,7 @@ export function EPFOVerificationGateway() {
             </p>
           </div>
 
-          <form className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             {/* Field: Email Identifier */}
             <div className="space-y-2">
               <label className="text-[10px] font-heading font-black uppercase tracking-widest text-gray-400 block">
@@ -49,7 +71,10 @@ export function EPFOVerificationGateway() {
               <div className="relative group">
                 <input 
                   type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="USERNAME@CIDC.CG.GOV.IN" 
+                  required
                   className="w-full bg-govGray border border-gray-200 px-4 py-3 pl-10 text-sm font-heading font-black uppercase tracking-widest outline-none focus:border-govBlack transition-all placeholder:text-gray-300"
                 />
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-govRed">
@@ -69,6 +94,7 @@ export function EPFOVerificationGateway() {
                 <input 
                   type="password" 
                   placeholder="••••••••••••" 
+                  required
                   className="w-full bg-govGray border border-gray-200 px-4 py-3 pl-10 text-sm font-heading font-black uppercase tracking-widest outline-none focus:border-govBlack transition-all placeholder:text-gray-300"
                 />
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-govRed">
@@ -81,12 +107,12 @@ export function EPFOVerificationGateway() {
 
             {/* Action Trigger */}
             <div className="pt-2">
-              <Link 
-                to="/epfo-payment" 
-                className="w-full bg-govBlack text-white py-4 font-heading font-black text-[11px] uppercase tracking-widest hover:bg-govRed transition-all flex items-center justify-center gap-3 text-center shadow-md no-underline active:scale-95"
+              <button 
+                type="submit" 
+                className="w-full bg-govBlack text-white py-4 font-heading font-black text-[11px] uppercase tracking-widest hover:bg-govRed transition-all flex items-center justify-center gap-3 text-center shadow-md active:scale-95"
               >
                 Authenticate & Proceed »
-              </Link>
+              </button>
             </div>
             
             <div className="text-center">

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// Everything else (IndianFlag, Header, etc.) goes BELOW these lines.
-
 const IndianFlag = () => (
     <svg viewBox="0 0 900 600" className="w-6 h-4 shadow-sm" xmlns="http://www.w3.org/2000/svg">
         <rect width="900" height="200" fill="#FF9933"/>
@@ -21,17 +19,32 @@ const IndianFlag = () => (
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+    const [user, setUser] = useState(null);
     
-    // 2. Initialize useLocation
     const location = useLocation();
 
+    // Scroll Listener
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 40);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // 3. Update menuItems with 'path' instead of 'href'
+    // Auth Listener: Checks local storage every time the route changes
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem('cidc_user');
+        if (loggedInUser) {
+            setUser(JSON.parse(loggedInUser));
+        } else {
+            setUser(null);
+        }
+    }, [location.pathname]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('cidc_user');
+        setUser(null);
+    };
+
     const menuItems = [
         { name: "Home", path: "/" },
         { name: "About Us", path: "/about" },
@@ -68,50 +81,75 @@ const Header = () => {
             {/* Main Navbar */}
             <div className={`bg-white border-b-2 border-govGray shadow-sm flex items-center transition-all duration-300 ${isScrolled ? 'h-16' : 'h-24 md:h-28'}`}>
                 <div className="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
+                    
+                    {/* Logo Section */}
                     <div className="flex items-center gap-4">
                         <div className={`flex items-center justify-center transition-all duration-300 ${isScrolled ? 'w-12 h-12' : 'w-20 h-20 md:w-24 md:h-24'}`}>
                             <img src="/image/CIDClogo.png" alt="CIDC Logo" className="max-h-full w-auto object-contain" />
                         </div>
-                        
                         <div className="hidden sm:flex flex-col border-l-4 border-govGray pl-4">
                             <h1 className={`font-black leading-none text-govBlack transition-all uppercase ${isScrolled ? 'text-lg' : 'text-xl'}`}>CIDC RAIPUR</h1>
                             <span className="text-[8px] font-bold text-gray-500 mt-1 uppercase tracking-widest font-sans">Digital Advancement Portal</span>
                         </div>
                     </div>
 
-                    {/* Desktop Nav */}
-                    <nav className="hidden lg:flex gap-6 text-[14px] font-bold uppercase tracking-tight">
-                        {menuItems.map((item) => {
-                            // 4. CHECK IF THE ITEM PATH MATCHES THE CURRENT URL
-                            const isActive = location.pathname === item.path;
+                    {/* Desktop Navigation & Auth */}
+                    <div className="flex items-center">
+                        <nav className="hidden lg:flex gap-6 text-[14px] font-bold uppercase tracking-tight">
+                            {menuItems.map((item) => {
+                                // DYNAMIC ROUTING LOGIC HERE
+                                const targetPath = (item.name === "EPFO" && user) ? "/epfo-payment" : item.path;
+                                const isActive = location.pathname === targetPath || location.pathname === item.path;
 
-                            return (
-                                <Link 
-                                    key={item.name} 
-                                    to={item.path} 
-                                    className={`${isActive ? "text-govRed border-b-2 border-govRed" : "text-govBlack hover:text-govRed"} pb-1 transition-all`}
-                                >
-                                    {item.name}
+                                return (
+                                    <Link 
+                                        key={item.name} 
+                                        to={targetPath} 
+                                        className={`${isActive ? "text-govRed border-b-2 border-govRed" : "text-govBlack hover:text-govRed"} pb-1 transition-all`}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                );
+                            })}
+                        </nav>
+
+                        {/* DESKTOP: Login / Logout Widget */}
+                        <div className="hidden lg:flex items-center ml-8 pl-8 border-l-2 border-gray-200">
+                            {user ? (
+                                <div className="flex items-center gap-4 group">
+                                    <div className="w-10 h-10 rounded-full bg-govRed text-white flex items-center justify-center font-heading font-black text-[16px] uppercase shadow-sm border-2 border-white ring-2 ring-govRed/20">
+                                        {user.initial}
+                                    </div>
+                                    <button onClick={handleLogout} className="text-[11px] font-heading font-black text-gray-400 uppercase tracking-[0.2em] hover:text-govRed transition-colors">
+                                        Logout
+                                    </button>
+                                </div>
+                            ) : (
+                                <Link to="/epfo" className="bg-govBlack text-white px-8 py-3 text-[11px] font-heading font-black uppercase tracking-[0.2em] hover:bg-govRed transition-all active:scale-95 shadow-sm">
+                                    Login
                                 </Link>
-                            );
-                        })}
-                    </nav>
+                            )}
+                        </div>
 
-                    {/* Mobile Hamburger */}
-                    <button onClick={() => setIsSideNavOpen(true)} className="lg:hidden p-2 hover:bg-govGray transition-colors">
-                        <svg className="w-8 h-8 text-govBlack" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
+                        {/* Mobile Hamburger */}
+                        <button onClick={() => setIsSideNavOpen(true)} className="lg:hidden ml-4 p-2 hover:bg-govGray transition-colors">
+                            <svg className="w-8 h-8 text-govBlack" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            {/* Mobile Side Nav */}
+            {/* Mobile Side Nav Overlay */}
             {isSideNavOpen && (
                 <div className="fixed inset-0 bg-govBlack/60 backdrop-blur-sm z-[60] lg:hidden" onClick={() => setIsSideNavOpen(false)}></div>
             )}
-            <div className={`fixed top-0 right-0 h-full w-72 bg-white z-[70] shadow-2xl transition-transform duration-300 transform lg:hidden ${isSideNavOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-                <div className="p-6 bg-govBlack text-white flex justify-between items-center">
+            
+            {/* Mobile Side Nav Drawer */}
+            <div className={`fixed top-0 right-0 h-full w-72 bg-white z-[70] shadow-2xl transition-transform duration-300 transform flex flex-col lg:hidden ${isSideNavOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                
+                <div className="p-6 bg-govBlack text-white flex justify-between items-center shrink-0">
                     <button onClick={() => setIsSideNavOpen(false)} className="hover:text-govRed transition-colors">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
@@ -119,13 +157,17 @@ const Header = () => {
                     </button>
                     <span className="font-black text-sm tracking-widest uppercase">MENU</span>
                 </div>
-                <nav className="p-6 flex flex-col gap-6 font-bold uppercase text-sm text-right overflow-y-auto h-full pb-20">
+                
+                <nav className="p-6 flex flex-col gap-6 font-bold uppercase text-sm text-right flex-grow overflow-y-auto">
                     {menuItems.map((item) => {
-                        const isActive = location.pathname === item.path;
+                        // DYNAMIC ROUTING LOGIC HERE (MOBILE)
+                        const targetPath = (item.name === "EPFO" && user) ? "/epfo-payment" : item.path;
+                        const isActive = location.pathname === targetPath || location.pathname === item.path;
+                        
                         return (
                             <Link 
                                 key={item.name} 
-                                to={item.path} 
+                                to={targetPath} 
                                 className={`${isActive ? "text-govRed" : "text-govBlack"} hover:text-govRed border-b border-govGray pb-4`} 
                                 onClick={() => setIsSideNavOpen(false)}
                             >
@@ -134,6 +176,28 @@ const Header = () => {
                         );
                     })}
                 </nav>
+
+                {/* MOBILE: Login / Logout Widget (Anchored to bottom) */}
+                <div className="p-6 border-t border-gray-200 bg-gray-50 shrink-0">
+                    {user ? (
+                        <div className="flex flex-col gap-4">
+                            <div className="flex items-center justify-end gap-3">
+                                <span className="font-heading font-black text-xs text-gray-500 uppercase tracking-widest">{user.name}</span>
+                                <div className="w-10 h-10 rounded-full bg-govRed text-white flex items-center justify-center font-heading font-black text-[16px] uppercase shadow-sm">
+                                    {user.initial}
+                                </div>
+                            </div>
+                            <button onClick={() => { handleLogout(); setIsSideNavOpen(false); }} className="w-full bg-govBlack text-white py-4 font-heading font-black text-[11px] uppercase tracking-widest hover:bg-govRed transition-colors shadow-sm">
+                                Logout
+                            </button>
+                        </div>
+                    ) : (
+                        <Link to="/epfo" onClick={() => setIsSideNavOpen(false)} className="block w-full text-center bg-govBlack text-white py-4 font-heading font-black text-[11px] uppercase tracking-widest hover:bg-govRed transition-colors shadow-md">
+                            Admin Login
+                        </Link>
+                    )}
+                </div>
+
             </div>
         </header>
     );

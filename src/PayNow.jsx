@@ -38,8 +38,6 @@ export function PaymentNow() {
     <main className="min-h-screen bg-white py-16 font-sans antialiased text-govBlack selection:bg-govRed selection:text-white">
       <div style={containerStyle} className="mx-auto px-6 space-y-12">
         
-        
-
         {/* --- SECTION 2: EPFO REGISTRY TABLE --- */}
         <div className="space-y-12 animate-fade-in">
           <section className="space-y-6">
