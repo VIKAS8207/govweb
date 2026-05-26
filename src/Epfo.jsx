@@ -75,7 +75,8 @@ export function EPFOVerificationGateway() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="USERNAME@CIDC.CG.GOV.IN" 
                   required
-                  className="w-full bg-govGray border border-gray-200 px-4 py-3 pl-10 text-sm font-heading font-black uppercase tracking-widest outline-none focus:border-govBlack transition-all placeholder:text-gray-300"
+                  // FIX: Applied normal-case and font-sans to the typing area, kept the uppercase design exclusively for the placeholder
+                  className="w-full bg-govGray border border-gray-200 px-4 py-3 pl-10 text-sm font-sans normal-case outline-none focus:border-govBlack transition-all placeholder:text-gray-300 placeholder:uppercase placeholder:font-heading placeholder:font-black placeholder:tracking-widest"
                 />
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-govRed">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
@@ -95,7 +96,8 @@ export function EPFOVerificationGateway() {
                   type="password" 
                   placeholder="••••••••••••" 
                   required
-                  className="w-full bg-govGray border border-gray-200 px-4 py-3 pl-10 text-sm font-heading font-black uppercase tracking-widest outline-none focus:border-govBlack transition-all placeholder:text-gray-300"
+                  // FIX: Also removed uppercase from here to prevent hidden bugs with case-sensitive passwords
+                  className="w-full bg-govGray border border-gray-200 px-4 py-3 pl-10 text-sm font-sans tracking-widest outline-none focus:border-govBlack transition-all placeholder:text-gray-300"
                 />
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-govRed">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
