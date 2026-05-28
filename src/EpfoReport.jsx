@@ -68,38 +68,41 @@ export function EpfoReport() {
           <div className="p-6 md:p-8 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
             
             {/* Cycle Selectors */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
-              <div className="w-full sm:w-auto">
-                <label className="text-[9px] font-heading font-black uppercase text-gray-400 tracking-widest mb-2 block">Reporting Month</label>
-                <div className="border-2 border-gray-200 bg-white">
-                  <select 
-                    value={selectedMonth}
-                    onChange={(e) => setSelectedMonth(e.target.value)}
-                    className="w-full bg-transparent p-3 pr-10 text-[12px] font-heading font-black uppercase tracking-widest outline-none focus:border-govRed transition-colors cursor-pointer text-govBlack appearance-none"
-                  >
-                    {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map(m => (
-                      <option key={m} value={m}>{m}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="hidden sm:block text-gray-300 font-black mt-5">/</div>
-              <div className="w-full sm:w-auto">
-                <label className="text-[9px] font-heading font-black uppercase text-gray-400 tracking-widest mb-2 block">Financial Year</label>
-                <div className="border-2 border-gray-200 bg-white">
-                  <select 
-                    value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
-                    className="w-full bg-transparent p-3 pr-10 text-[12px] font-heading font-black uppercase tracking-widest outline-none focus:border-govRed transition-colors cursor-pointer text-govBlack appearance-none"
-                  >
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
+<div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
+  {/* Left Position: Financial Year */}
+  <div className="w-full sm:w-auto">
+    <label className="text-[9px] font-heading font-black uppercase text-gray-400 tracking-widest mb-2 block">Financial Year</label>
+    <div className="border-2 border-gray-200 bg-white">
+      <select 
+        value={selectedYear}
+        onChange={(e) => setSelectedYear(e.target.value)}
+        className="w-full bg-transparent p-3 pr-10 text-[12px] font-heading font-black uppercase tracking-widest outline-none focus:border-govRed transition-colors cursor-pointer text-govBlack appearance-none"
+      >
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+      </select>
+    </div>
+  </div>
+  
+  <div className="hidden sm:block text-gray-300 font-black mt-5">/</div>
+  
+  {/* Right Position: Reporting Month */}
+  <div className="w-full sm:w-auto">
+    <label className="text-[9px] font-heading font-black uppercase text-gray-400 tracking-widest mb-2 block">Reporting Month</label>
+    <div className="border-2 border-gray-200 bg-white">
+      <select 
+        value={selectedMonth}
+        onChange={(e) => setSelectedMonth(e.target.value)}
+        className="w-full bg-transparent p-3 pr-10 text-[12px] font-heading font-black uppercase tracking-widest outline-none focus:border-govRed transition-colors cursor-pointer text-govBlack appearance-none"
+      >
+        {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map(m => (
+          <option key={m} value={m}>{m}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+</div>
             {/* Dynamic Status Badges */}
             <div className="flex items-center gap-8 w-full lg:w-auto border-t-2 lg:border-t-0 border-gray-100 pt-6 lg:pt-0">
               <div className="text-left lg:text-right border-r-2 border-gray-200 pr-8">
