@@ -159,10 +159,15 @@ export function PaymentNow() {
                   <span className="text-xl font-heading font-black text-govBlack opacity-40">.{(netPayable % 1).toFixed(2).substring(2)}</span>
                 </div>
               </div>
-              <button className="w-full bg-govBlack text-white py-6 font-heading font-black text-[14px] uppercase tracking-[0.3em] hover:bg-govRed transition-all duration-300 shadow-md active:scale-95 flex items-center justify-center gap-4 group">
-                Pay Now
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </button>
+              <Link 
+  to="/epfo-report" 
+  className="w-full bg-govBlack text-white py-6 font-heading font-black text-[14px] uppercase tracking-[0.3em] hover:bg-govRed transition-all duration-300 shadow-md active:scale-95 flex items-center justify-center gap-4 group"
+>
+  Pay Now
+  <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+    <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+  </svg>
+</Link>
               <p className="text-[9px] font-sans font-bold text-gray-400 uppercase tracking-widest text-center">Gateway Secured by CIDC Treasury</p>
             </div>
           </section>

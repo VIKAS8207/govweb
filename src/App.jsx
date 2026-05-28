@@ -23,6 +23,8 @@ import ShopPaymentDone from './pages/ShopDones';
 
 import AddEmployees from './pages/AddEmps';
 import PaymentDone from './pages/EpfoPaid';
+import EpfoReports from './pages/EpfoReports';
+
 
 function App() {
   return (
@@ -47,7 +49,7 @@ function App() {
               <Route path="/shoppay" element={<ShopBill />} />
               <Route path="/add-employee" element={<AddEmployees />} /> 
               <Route path="/payment-done" element={<PaymentDone />} />  
-              
+              <Route path="/epfo-report" element={<EpfoReports />} />
               {/* FIX: Routed to the newly named import */}
               <Route path="/shop-done" element={<ShopPaymentDone />} />  
            </Routes>

@@ -105,7 +105,7 @@ export function PaymentConfirmation() {
   return (
     <main className="min-h-screen bg-white py-16 font-sans antialiased text-govBlack selection:bg-govRed selection:text-white relative">
       <div style={containerStyle} className="mx-auto px-6 space-y-12">
-      
+      s
         {/* --- SECTION 1: STATUTORY IDENTITY --- */}
         <header className="border-l-[8px] border-govRed pl-8 py-2">
           <div className="flex items-center gap-3 mb-2">
@@ -239,21 +239,39 @@ export function PaymentConfirmation() {
             </div>
 
             {/* --- PAYMENT / SETTLEMENT ACTION BUTTON AT BOTTOM OF PAGE --- */}
-            <div className="mt-16 pt-8 border-t-4 border-govBlack flex flex-col md:flex-row justify-between items-center gap-6">
-              <div>
-                <p className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-[0.3em]">Total Active Roster: {employees.length} Personnel</p>
-                <p className="text-[12px] font-sans font-bold text-govBlack mt-1">Registry verified and ready for settlement.</p>
-              </div>
-              <Link 
-                to="/payment-done" 
-                className="w-full md:w-auto bg-govBlack text-white px-16 py-6 font-heading font-black text-[14px] uppercase tracking-[0.3em] hover:bg-govRed transition-all active:scale-95 shadow-md flex items-center justify-center gap-4 group"
-              >
-                Proceed to Payment
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-            </div>
+            <div className="mt-16 pt-8 border-t-4 border-govBlack flex flex-col lg:flex-row justify-between items-center gap-6">
+  <div>
+    <p className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-[0.3em]">
+      Total Active Roster: {employees.length} Personnel
+    </p>
+    <p className="text-[12px] font-sans font-bold text-govBlack mt-1">
+      Registry verified and ready for settlement.
+    </p>
+  </div>
+  
+  {/* Unified Button Container for Balanced Sizing */}
+  <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
+    <Link 
+      to="/epfo-report" 
+      className="w-full md:w-56 bg-white text-govBlack border-2 border-govBlack py-5 font-heading font-black text-[13px] uppercase tracking-[0.2em] hover:bg-gray-50 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 group text-center"
+    >
+      View Report
+      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+        <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </Link>
+    
+    <Link 
+      to="/payment-done" 
+      className="w-full md:w-56 bg-govBlack text-white py-5 font-heading font-black text-[13px] uppercase tracking-[0.2em] hover:bg-govRed transition-all duration-300 shadow-md active:scale-95 flex items-center justify-center gap-3 group text-center"
+    >
+      Pay Now
+      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+        <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </Link>
+  </div>
+</div>
 
           </section>
         </div>
